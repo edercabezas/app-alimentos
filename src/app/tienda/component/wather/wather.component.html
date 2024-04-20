@@ -1,0 +1,95 @@
+<div class="container__clima">
+
+
+  <mat-card class="card__number__one">
+
+    <div class="container__ubicacion">
+      <div class="container__country" *ngIf="country">
+        <span>Pais: {{ country}} </span>
+      </div>
+      <div class="container__department" *ngIf="deparment">
+        <span>Departamento: {{ deparment }}</span>
+      </div>
+      <div class="container__city" *ngIf="city">
+        <span>Ciudad: {{ city }}</span>
+      </div>
+    </div>
+    <div class="container__now">
+
+      <div class="row">
+        <div class="col-12 col-lg-4">
+          <mat-card class="mat-card-two">
+
+            <div class="container__card">
+
+              <div class="container__img">
+                <div class="img">
+                  <img [src]="returnImg(detailNow.weather)" alt="">
+                </div>
+
+              </div>
+
+              <div class="container__grados">
+                <h1> {{ detailNow.temp2m.max }} °C</h1>
+                <h1>Minimo: {{ detailNow.temp2m.min }}</h1>
+              </div>
+
+              <div class="day__now">
+                <h2>{{ detailNow.date | fechaNombre}}</h2>
+
+              </div>
+
+
+            </div>
+
+
+          </mat-card>
+        </div>
+
+        <div class="col-12 col-lg-8">
+
+
+          <div class="row">
+            <div class="col-12 col-lg-6" *ngFor="let items of detailNewDay">
+              <mat-card class="mat-card-two">
+                <div class="container__card_new_day">
+                  <div class="container__img">
+
+                    <div class="img">
+                      <img [src]="returnImg(items.weather)" alt="">
+                    </div>
+
+                  </div>
+
+                  <div class="container__grados">
+                    <h1> {{ items.temp2m.max }} °C</h1>
+                    <h1>Minimo: {{ items.temp2m.min }}</h1>
+                  </div>
+
+
+                  <div class="day__now">
+                    <h2>{{ items.date | fechaNombre}}</h2>
+
+                  </div>
+                </div>
+
+
+              </mat-card>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </mat-card>
+
+
+
+
+
+</div>
+
+
+

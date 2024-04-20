@@ -28,7 +28,13 @@ export class GuardsGuard implements CanActivate {
   }
   canActivate(): boolean {
 
-    const data = JSON.parse(this.authData);
+    let data: any
+
+    if (this.authData) {
+      data = JSON.parse(this.authData);
+    }
+
+
 
     if (this.auth && (data && data.profile === 'Admin') ) {
       return true;

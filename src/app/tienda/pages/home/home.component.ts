@@ -9,6 +9,7 @@ import {ReloadComponent} from "../../component/reload/reload.component";
 import {SharedService} from "../../services/shared/shared.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CartComponent} from "../../component/cart/cart.component";
+import {WatherComponent} from "../../component/wather/wather.component";
 
 
 @Component({
@@ -22,7 +23,8 @@ import {CartComponent} from "../../component/cart/cart.component";
     MatIcon,
     RouterLink,
     NgIf,
-    ReloadComponent
+    ReloadComponent,
+    WatherComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

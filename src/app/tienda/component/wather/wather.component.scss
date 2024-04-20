@@ -1,0 +1,56 @@
+
+mat-card {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.container__card {
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .img {
+    height: 120px;
+    width: 120px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+.container__card_new_day {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .img {
+    height: 120px;
+    width: 120px;
+
+    img {
+      width: 100%;
+      height: 80%;
+    }
+  }
+}
+
+.card__number__one {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mat-card-two {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+.container__ubicacion {
+  span {
+    font-weight: 400;
+    font-size: 20px;
+    color: #212121;
+  }
+}

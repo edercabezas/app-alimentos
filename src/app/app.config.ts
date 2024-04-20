@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
+      HttpClientModule,
       [
         ToastrModule.forRoot({
           timeOut: 5000,

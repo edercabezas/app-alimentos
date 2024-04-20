@@ -95,15 +95,11 @@ export class SearchComponent implements OnInit{
 
   showSearchResults() {
 
-    if (this.dataBuscador.length > 0) {
       this.recorerBusqueda = this.products.filter( (res: any) => {
 
         return  res.nameProduct.toLowerCase().includes(this.dataBuscador.toLowerCase());
       });
-    } else {
-      this.mostrarResultados = false;
-      this.recorerBusqueda = [];
-    }
+
 
   }
 
