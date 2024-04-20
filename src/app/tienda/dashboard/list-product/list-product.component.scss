@@ -1,0 +1,33 @@
+.container___options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .container__title {
+    span {
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.img {
+  height: 70px;
+  width: 70px;
+  img {
+    width: 100%;
+    height: 90%;
+  }
+}
+
+
+.button-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ button {
+   margin: 2px;
+ }
+}

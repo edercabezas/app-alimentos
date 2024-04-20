@@ -1,0 +1,86 @@
+
+<div class="container___register">
+  <div class="container-title">
+    <div class="container__title__form">
+      <span *ngIf="numberOption === 1; else registro ">Crear Nuevo usuario</span>
+      <ng-template #registro>
+        <span >Actualizar Usuario</span>
+      </ng-template>
+
+    </div>
+    <div class="container__title__exit">
+      <button mat-stroked-button color="warn" (click)="onNoClick()">
+        <mat-icon>close </mat-icon>
+      </button>
+    </div>
+  </div>
+
+
+
+<div class="container___auth">
+  <div class="row">
+    <div class="col-12 col-lg-6" >
+
+      <div class="container__name__user">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Nombre de usuario"  [(ngModel)]="userRegister.userName">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="container__email">
+        <mat-form-field>
+          <mat-label>Tipo de usuario</mat-label>
+          <mat-select  [(ngModel)]="userRegister.profile">
+            <mat-option [value]="'Admin'">Admin</mat-option>
+            <mat-option [value]="'Customer'">Customer</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="container__email">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electronico</mat-label>
+          <input matInput placeholder="Correo Electronico"  [(ngModel)]="userRegister.email" [disabled]="numberOption === 2">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="container__password">
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Cotraseña" [(ngModel)]="userRegister.password" [type]="hide ? 'password' : 'text'" [disabled]="numberOption === 2">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+  <div class="container__button__Section" >
+    <button mat-flat-button color="primary" (click)="createUser()" *ngIf="numberOption === 1"
+    [disabled]="statusButton"
+    >
+      Crear usuario
+      <i *ngIf="statusButton" class="fa fa-spinner fa-spin"></i>
+    </button>
+
+
+    <button mat-flat-button color="primary" (click)="actualizar()" *ngIf="numberOption === 2"
+            [disabled]="statusButton"
+    >
+     Actualizar
+      <i *ngIf="statusButton" class="fa fa-spinner fa-spin"></i>
+    </button>
+  </div>
+
+
+
+</div>

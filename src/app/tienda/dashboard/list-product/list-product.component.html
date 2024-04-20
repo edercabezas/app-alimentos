@@ -1,0 +1,105 @@
+<div class="container-table-teeth-conventions">
+
+
+  <div class="container___options">
+
+    <div class="container__title">
+
+      <span>Listado de productos</span>
+
+    </div>
+    <div class="container__button">
+      <button mat-fab color="primary" title="Crear nuevo producto" routerLink="/create-product">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <table mat-table [dataSource]="tableproduct" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="img">
+      <th mat-header-cell *matHeaderCellDef> Imagen </th>
+      <td mat-cell *matCellDef="let element">
+
+        <div class="img">
+          <img [src]="element.img" alt="">
+        </div>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="nameProduct">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.nameProduct}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Precio</th>
+      <td mat-cell *matCellDef="let element"> {{ element.price | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element">
+
+        @if (element.status ) {
+        <span> Activo  </span>
+        } @else {
+        <span>Inactivo</span>
+        }
+
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Producto</th>
+      <td mat-cell *matCellDef="let element">
+
+       {{ filtreTypeProduct(element.category) }}
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="size">
+      <th mat-header-cell *matHeaderCellDef>Cantidad disponible</th>
+      <td mat-cell *matCellDef="let element"> {{ element.size }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prefijo">
+      <th mat-header-cell *matHeaderCellDef> Prefijo </th>
+      <td mat-cell *matCellDef="let element"> {{element.value_prefijo}} - {{element.prefijo}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef> Accion </th>
+      <td mat-cell *matCellDef="let element" >
+
+        <div class="button-action">
+          <div class="button-edit">
+            <button mat-stroked-button color="primary" (click)="selectRow(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button color="warn" (click)="deleteRow(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="tableConventionsColumns"></tr>
+
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: tableConventionsColumns; let i = index"
+      [class.table-row-selected]="selectIndexTable === i">
+
+    </tr>
+
+
+  </table>
+</div>

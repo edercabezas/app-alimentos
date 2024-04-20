@@ -1,0 +1,66 @@
+<div class="container__big">
+
+  <div class="container__buutton__back">
+
+    <button mat-fab color="primary" (click)="backButton()">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+
+  <div class="row" *ngIf="setProduct">
+    <div class="col-12 col-lg-5">
+        <div class="img" >
+          <img [src]="setProduct.img" alt="">
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-7">
+
+      <p class="name__product">
+        <span> {{ setProduct.nameProduct }}</span>
+      </p>
+
+      <p class="prefijo">
+        <span> {{ setProduct.value_prefijo }} - {{ setProduct.prefijo }}</span>
+      </p>
+
+
+      <p class="price">
+        <span> {{ setProduct.price | currency }} </span>
+      </p>
+
+
+      <div class="footer__button">
+        <div class="container__button">
+
+          <button mat-flat-button color="primary" class="button__cart button__back__add__cart " (click)="openCart(setProduct)">
+            <mat-icon>local_mall</mat-icon>
+            <span>Agregar al Carrtito</span>
+          </button>
+          <button mat-flat-button color="primary" class="button__favorite button__add__favorite">
+
+            <mat-icon>favorite</mat-icon>
+            <span>Agregar a Favorito</span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="description">
+
+
+        <h2>Descripción del Producto</h2>
+
+        <p>
+          {{ setProduct.description }}
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-reload *ngIf="!setProduct"  [title]="'Un momento por favor ......'"></app-reload>

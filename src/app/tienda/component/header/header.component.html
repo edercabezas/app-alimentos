@@ -1,0 +1,115 @@
+<mat-toolbar class="header___cackgroud">
+
+<mat-toolbar-row class="row-client">
+  <div class="container-logo">
+    <div class="logo">
+      <span routerLink="/">Gestión de alimentos</span>
+
+    </div>
+    <div class="category">
+      <header class="header-mobil main-headers">
+
+        <label for="btn-nav" (click)="menuMobilShow()">
+          <mat-icon class="color__button__header">{{ showScroll ? 'menu': 'close' }}</mat-icon>
+        </label>
+        <input type="checkbox" id="btn-nav">
+
+        <nav>
+          <div class="navigation">
+            <app-categorys (optionSelect)="checkCategory($event)"></app-categorys>
+          </div>
+
+        </nav>
+      </header>
+    </div>
+  </div>
+
+  <div class="container-search">
+    <app-search></app-search>
+  </div>
+
+  <div class="container-options">
+
+<!--    <button class=""  type="button" mat-button (click)="openModalLogin(1)">-->
+<!--      <div class="container-icons">-->
+<!--        <mat-icon>local_shipping</mat-icon>-->
+<!--      </div>-->
+<!--      <div class="container-text">-->
+<!--        <span>Pedidos</span>-->
+<!--      </div>-->
+<!--    </button>-->
+
+<!--    <button class=""  type="button"  mat-button (click)="openModalLogin(1)">-->
+
+<!--      <div class="container-icons">-->
+<!--        <mat-icon>favorite</mat-icon>-->
+<!--      </div>-->
+
+<!--        <span>Favorito</span>-->
+
+<!--    </button>-->
+
+    <button class="color__button__header"  type="button"  mat-button [matMenuTriggerFor]="menu">
+      <div class="container-icons">
+        <div class="img" *ngIf="userRegister; else userOutImg">
+          <img [src]="userRegister.img" alt="">
+        </div>
+
+        <ng-template #userOutImg>
+          <mat-icon>person</mat-icon>
+        </ng-template>
+
+      </div>
+     <div class="container-text ">
+       <span class="color__button__header" *ngIf="userRegister; else userOut"> {{ userRegister.userName || 'Usuario' }}</span>
+
+       <ng-template #userOut>
+         <span class="color__button__header">Usuario</span>
+       </ng-template>
+
+     </div>
+    </button>
+
+    <button class="color__button__header"  type="button"  mat-button  routerLink="/cart">
+
+      <div class="container-icons">
+        <mat-icon [matBadge]="valorCantidad">shopping_cart</mat-icon>
+      </div>
+      <div class="container-text color__button__header">
+        <span class="color__button__header">Carrito</span>
+      </div>
+      </button>
+  </div>
+
+</mat-toolbar-row>
+<mat-toolbar-row class="row-admin"></mat-toolbar-row>
+<mat-toolbar-row class="row-mobil"></mat-toolbar-row>
+
+
+
+</mat-toolbar>
+
+
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+
+  <div *ngIf="!userRegister">
+    <button mat-menu-item (click)="openModalLogin(1)">Iniciar sesión</button>
+    <button mat-menu-item (click)="openModalLogin(2)">Registrate</button>
+  </div>
+
+  <div *ngIf="userRegister && userRegister.profile === 'Admin'">
+    <button mat-menu-item routerLink="/products">Productos</button>
+    <button mat-menu-item routerLink="/users">Usuarios</button>
+  </div>
+
+  <button mat-flat-button color="warn" class="button__favorite" *ngIf="userRegister">
+
+    <span (click)="closeGenFuego()">Cerrar sesión</span>
+
+  </button>
+</mat-menu>
+
+
+
+<app-reload *ngIf="!setProduct"  [title]="'Un momento por favor estamos cerrando sesión......'"></app-reload>

@@ -1,0 +1,23 @@
+<div class="container__categorys">
+
+  <div class="title__category"></div>
+
+
+  <div class="option__categorys">
+    <mat-list>
+      <mat-list-item *ngFor="let item of categorys" (click)="setOptionCategory(item)">
+        <div class="container__option">
+          <div class="container__text">
+            <span>{{ item.name }}</span>
+          </div>
+          <div class="container__text">
+            <mat-icon>chevron_right</mat-icon>
+          </div>
+        </div>
+
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+
+</div>

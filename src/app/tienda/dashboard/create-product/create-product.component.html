@@ -1,0 +1,123 @@
+<div class="container__form">
+
+
+  <div class="row">
+    <div class="col-12 col-lg-4">
+
+      <div class="container__img">
+
+        <div class="container-one-im" >
+          <div class="img-form" (click)="selectPhoto()">
+            <img  [src]="setProduct.img">
+          </div>
+        </div>
+
+        <input type="file" id="upload-product" (change)="upload($event)" accept=".png, .jpg, .jpeg" style="display: none" >
+
+      </div>
+
+
+    </div>
+    <div class="col-12 col-lg-8 container__form__two">
+      <div class="row ">
+        <div class="col-12  col-lg-6">
+          <mat-form-field>
+            <mat-label>Categoria del producto</mat-label>
+            <mat-select  [(ngModel)]="setProduct.category">
+              @for (cate of getCategorys; track cate) {
+              <mat-option [value]="cate.id">{{cate.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+
+        <div class="col-12  col-lg-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del producto</mat-label>
+            <input matInput placeholder="Valor del producto" [(ngModel)]="setProduct.nameProduct">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12  col-lg-6">
+          <mat-form-field>
+            <mat-label>Prefijo del producto</mat-label>
+            <mat-select  [(ngModel)]="setProduct.prefijo">
+              @for (pref of prefijos; track pref) {
+              <mat-option [value]="pref.code">{{pref.name}} ({{pref.code}})</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+        <div class="col-12  col-lg-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Valor prefijo </mat-label>
+            <input matInput placeholder="Valor prefijo (500)" [(ngModel)]="setProduct.value_prefijo">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <span> Ejemplo en prefijos seleccionas kilo en valor prefijos pones 1 quedaria  en la vista de productos 1K</span>
+        </div>
+      </div>
+
+      <div class="row pt-4">
+        <div class="col-12  col-lg-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Valor del producto</mat-label>
+            <input matInput placeholder="Valor del producto" [(ngModel)]="setProduct.price">
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-12  col-lg-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad disponibles</mat-label>
+            <input matInput placeholder="Cantidad disponibles" [(ngModel)]="setProduct.size">
+          </mat-form-field>
+        </div>
+
+        <div class="col-12  col-lg-4">
+          <mat-form-field>
+            <mat-label>Estado del producto</mat-label>
+            <mat-select  [(ngModel)]="setProduct.status">
+
+              <mat-option [value]="true">Activo</mat-option>
+              <mat-option [value]="false">Inactivo</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12  col-lg-12">
+          <mat-form-field>
+            <mat-label>Descripcion del Producto</mat-label>
+            <textarea matInput [(ngModel)]="setProduct.description"></textarea>
+          </mat-form-field>
+
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="container__button__Section">
+            <button mat-flat-button color="warn" (click)="updateProduct()" *ngIf="setProduct.id">Actualizar</button>
+            <button mat-flat-button color="primary" (click)="createRegister()" *ngIf="!setProduct.id">Registrate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,89 @@
+
+
+<div class="container-big">
+
+  <div class="container___products__dest"></div>
+  <div class="container__list__products">
+
+
+    <div class="container">
+      <div class="row" *ngIf="products.length > 0; else noProduct">
+        <div class="col-12 col-lg-3" *ngFor="let items of products">
+          <mat-card>
+
+            <div class="container-img">
+              <img [src]="items?.img" alt="" (click)="redirectDetail(items)">
+            </div>
+            <div class="container-description">
+
+              <div class="container__name">
+                <p>{{ items.nameProduct }}</p>
+              </div>
+
+                <div class="container-prefijo">
+                  <span> {{ items.value_prefijo}} - {{ items.prefijo}} </span>
+                </div>
+
+              <div class="container__price">
+                <span> {{ items.price | currency }} </span>
+              </div>
+
+
+
+              <div class="footer__button">
+                <div class="container__button">
+
+                  <button mat-flat-button color="primary" class="button__cart button__back__add__cart" (click)="openCart(items)">
+                    <mat-icon>local_mall</mat-icon>
+                    <span>Carrtito</span>
+                  </button>
+                  <button mat-flat-button color="primary" class="button__favorite button__add__favorite">
+
+                    <mat-icon>favorite</mat-icon>
+                    <span>Favorito</span>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+
+
+            </div>
+
+
+
+          </mat-card>
+
+        </div>
+      </div>
+
+
+      <ng-template #noProduct>
+
+        <div class="container___pricipal">
+
+          <div class="container__padre">
+
+            <img src="assets/img/products/not__products.jpg" alt="">
+
+            <p> No hay productos asociados a la categoria ingresa al siguiente link para buscar mas productos <span (click)="getProducts()">Clic aqqui</span></p>
+
+          </div>
+
+        </div>
+
+      </ng-template>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+<app-reload *ngIf="statusProduct"  [title]="'Un momento por favor ......'"></app-reload>

@@ -1,0 +1,132 @@
+.mat-card {
+
+  mat-card {
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    }
+  }
+
+  .img {
+    height: 150px;
+    width: 180px;
+    img {
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+
+}
+
+.container__price, .container__name, .container__button_delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__buutton__back {
+  margin-bottom: 15px;
+}
+
+
+
+
+.prefijo__product {
+  p {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #424242;
+  }
+  margin-bottom: 15px;
+}
+
+.name__product {
+  p {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #212121;
+  }
+  margin-bottom: 15px;
+}
+
+
+.container__precio {
+  p {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #92819b;
+  }
+  margin-bottom: 15px;
+}
+.container__cantidad {
+  p {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #212121;
+  }
+  margin-bottom: 15px;
+}
+.container__price__total {
+  p {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #67a466;
+  }
+  margin-bottom: 15px;
+}
+
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-card-lacteral {
+ mat-card {
+   margin-bottom: 15px;
+   margin-top: 15px;
+   padding: 10px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+ }
+
+  .container__totalCompra {
+    margin-bottom: 15px;
+
+    .title__pagar {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-weight: 400;
+      color: #9f9a9a;
+    }
+
+    .value__pagar {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-weight: 500;
+      color: #22a132;
+    }
+  }
+}
+
+
+.container__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  span {
+    cursor: pointer;
+    color: #bb907d;
+    &:hover {
+      color: #c25725;
+    }
+  }
+}

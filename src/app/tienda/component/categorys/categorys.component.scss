@@ -1,0 +1,26 @@
+mat-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option__categorys {
+  text-align: justify;
+
+}
+
+
+mat-list-item {
+  margin-bottom: 1px;
+
+  &:hover {
+    background-color: #e8f6f2 !important;
+    cursor: pointer;
+  }
+}
+
+.container__option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

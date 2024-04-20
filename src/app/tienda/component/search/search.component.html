@@ -1,0 +1,50 @@
+<div class="plagio-di-plagio" *ngIf="products.length > 0 && mostrarResultados" (click)="perderFocusOcultarResulBusqueda()"></div>
+<div class="container clase-contenedor-padre">
+  <div class="buscador">
+
+    <input type="text"
+           class="form-control"
+           id="validationDefaultUsername"
+           [(ngModel)]="dataBuscador"
+           (focusin)="mostrarResultados = true"
+           (keyup)="showSearchResults()"
+           (change)="buscadorProductos($event)"
+           placeholder="Buscar productos, marcas, categorias y mas.........">
+    <div class="input-group-prepend" (click)="showSearchResults()">
+      <button
+        mat-raised-button
+        color="primary"
+        class="input-group-text"
+        (click)="ocultarInformacionBuscador()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+
+  </div>
+  <div class="resultados" *ngIf="mostrarResultados">
+    <div class="contenedor-informacion-absoluta" *ngIf="recorerBusqueda.length > 0">
+      <div *ngFor="let item of recorerBusqueda" class="adjustar-productos">
+
+        <div class="container__detail">
+          <div class="imagen-producto" (click)=" listadoProductoTotal(item)">
+          <span class="producto">
+            {{item['nameProduct'] + '  '}} (<span class="marca"> {{item['prefijo']}}</span>)
+             </span>
+          </div>
+
+          <div class="container__button">
+
+            <button mat-flat-button color="primary" class="button__cart button__back__add__cart" (click)="openCart(item)">
+              <mat-icon>local_mall</mat-icon>
+              <span>Carrtito</span>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

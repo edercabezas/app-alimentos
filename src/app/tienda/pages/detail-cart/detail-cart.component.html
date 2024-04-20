@@ -1,0 +1,183 @@
+<div class="container__cart">
+  <div class="container__buutton__back">
+
+    <button mat-fab color="primary" (click)="backButton()">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+
+
+  <div class="container__finish">
+
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <div class="mat-card" *ngIf="dataCart && dataCart.length > 0; else notProducts">
+
+          <mat-card *ngFor=" let item of dataCart; let i = index">
+            <div class="row">
+              <div class="col-6 col-lg-3">
+                <div class="img">
+                  <img [src]="item.img" alt="">
+                </div>
+              </div>
+
+              <div class="col-6 col-lg-4 container__name">
+                   <div>
+                     <div class="name__product">
+                       <p> {{ item.nameProduct}}</p>
+                     </div>
+
+                     <div class="prefijo__product">
+                       <p> {{ item.value_prefijo}} - {{ item.prefijo }} </p>
+                     </div>
+                   </div>
+              </div>
+
+              <div class="col-6 col-lg-3 container__price">
+                    <div class="">
+                      <div class="container__precio ">
+                        <p>{{ item.price | currency}}</p>
+                      </div>
+
+                      <div class="container__cantidad">
+                        <p>{{ item.cantidad}}</p>
+                      </div>
+
+
+                      <div class="container__price__total">
+                        <p>{{ item.cantidad * item.price | currency}}</p>
+                      </div>
+                    </div>
+              </div>
+
+              <div class="col-6 col-lg-2 container__button_delete">
+                <div class="container__right">
+                  <button mat-mini-fab color="accent" (click)="deleteCard(item, i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+
+
+        </div>
+
+
+        <ng-template #notProducts>
+
+          <div class="container__text">
+           <div class="div">
+             <h1>No tienes productos agregados</h1>
+             <p>Presiona aqui para agregar productos <span routerLink="/">Productos</span></p>
+           </div>
+          </div>
+
+
+
+        </ng-template>
+
+      </div>
+      <div class="col-12 col-lg-5">
+        <div class="mat-card-lacteral">
+
+          <mat-card>
+
+            <div class="container__totalCompra">
+              <span class="title__pagar">Total Compra: </span> <span class="value__pagar">{{ valorTotal | currency }}</span>
+            </div>
+          </mat-card>
+
+
+
+          <mat-card>
+
+
+            <div class="form__compra">
+
+              <div class="row">
+                <div class="col-12 col-lg-6">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Nombre" [(ngModel)]="dataPay.nombre">
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12 col-lg-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput placeholder="Apellido" [(ngModel)]="dataPay.apellido">
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-lg-6">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Ciudad</mat-label>
+                    <input matInput placeholder="Ciudad" [(ngModel)]="dataPay.ciudad">
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12 col-lg-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Barrio</mat-label>
+                    <input matInput placeholder="Barrio" [(ngModel)]="dataPay.barrio">
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput placeholder="Dirección" [(ngModel)]="dataPay.direccion">
+                  </mat-form-field>
+
+                </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-lg-6">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput placeholder="Telefono" [(ngModel)]="dataPay.telefono">
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12 col-lg-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Correo</mat-label>
+                    <input matInput placeholder="Correo" [(ngModel)]="dataPay.correo">
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+
+            </div>
+
+          </mat-card>
+
+          <mat-card>
+            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="setPay()"
+                    [disabled]="validaForm()"
+            >
+              <span>Realizar compra</span>
+            </button>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

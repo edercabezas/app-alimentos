@@ -1,0 +1,29 @@
+.container-one-im {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .img-form {
+    height: 300px;
+    width: 300px;
+    background-color: #212121;
+    margin-bottom: 70px;
+    border-radius: 25%;
+
+    img {
+      width: 100%;
+      border-radius: 25%;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%
+}
+
+
+.container__form__two {
+  @media (max-width:767px) {
+     margin-top: 102px !important;
+  }
+}

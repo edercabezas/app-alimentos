@@ -1,0 +1,82 @@
+mat-form-field {
+  width: 100%;
+}
+
+.container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: beige;
+  height: 55px;
+  padding-left: 5px;
+  padding-right: 2px;
+}
+
+.container___auth {
+  margin-top: 50px;
+
+  padding-right: 15px;
+  padding-left: 15px;
+
+  .container__button__Section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      width: 50%;
+    }
+  }
+
+  .container__register {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      &:hover {
+        cursor: pointer;
+        color: #d94e12;
+      }
+    }
+  }
+}
+
+
+.container___register {
+  //margin-top: 20px;
+  //
+  //padding-right: 15px;
+  //padding-left: 15px;
+
+  margin-bottom: 20px;
+
+  .container__button__Section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      width: 50%;
+    }
+  }
+
+  .container__register {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      &:hover {
+        cursor: pointer;
+        color: #d94e12;
+      }
+    }
+  }
+
+}

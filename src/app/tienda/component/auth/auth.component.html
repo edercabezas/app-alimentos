@@ -1,0 +1,92 @@
+<div class="container___section">
+<div class="container-title">
+  <div class="container__title__form">
+    <span *ngIf="typeForm === 1; else registro ">Iniciar Sesión</span>
+    <ng-template #registro>
+      <span >Registrate</span>
+    </ng-template>
+
+  </div>
+  <div class="container__title__exit">
+    <button mat-stroked-button color="warn" (click)="onNoClick()">
+      <mat-icon>close </mat-icon>
+    </button>
+  </div>
+</div>
+
+  <div class="container___auth" *ngIf="typeForm === 1; else registroForm ">
+    <div class="container__email">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo Electronico</mat-label>
+        <input matInput placeholder="Correo Electronico"  [(ngModel)]="loginUser.email">
+      </mat-form-field>
+    </div>
+
+    <div class="container__password">
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="Cotraseña" [(ngModel)]="loginUser.password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+
+      </mat-form-field>
+    </div>
+
+    <div class="container__button__Section">
+      <button mat-flat-button color="primary" (click)="login()" [disabled]="statusButton">Ingresar</button>
+    </div>
+
+    <div class="container__register">
+      <p> Ingresa al siguiente enlace para que puedas  <span (click)="resetForm(2)"> Registrarte </span></p>
+    </div>
+
+  </div>
+  <ng-template #registroForm>
+
+    <div class="container___register">
+
+      <div class="container__name__user">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Nombre de usuario"  [(ngModel)]="userRegister.userName">
+        </mat-form-field>
+      </div>
+
+      <div class="container__email">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electronico</mat-label>
+          <input matInput placeholder="Correo Electronico"  [(ngModel)]="userRegister.email">
+        </mat-form-field>
+      </div>
+
+      <div class="container__password">
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Cotraseña" [(ngModel)]="userRegister.password" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+        </mat-form-field>
+      </div>
+
+
+      <div class="container__button__Section">
+        <button mat-flat-button color="primary" (click)="createUser()" [disabled]="statusButton">Registrate</button>
+      </div>
+
+      <div class="container__register">
+        <p>Si ya tienes una cuenta presiona este enlace<span (click)="resetForm(1)"> Iniciar sesión </span></p>
+
+      </div>
+
+    </div>
+  </ng-template>
+
+
+
+
+
+
+</div>
