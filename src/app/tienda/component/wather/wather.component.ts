@@ -60,7 +60,6 @@ export class WatherComponent implements OnInit{
 
       this._getObtenerClima(response.longitude, response.latitude);
 
-      console.log(response)
 
     }).catch(() => {
 

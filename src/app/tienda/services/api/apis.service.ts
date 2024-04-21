@@ -33,33 +33,33 @@ export class ApisService {
   }
 
 
-  async obtenerDatosClima(longitud: any, latitud: any): Promise<any> {
-
-    const TIEMPO: any = `https://www.7timer.info/bin/civillight.php?lon=${longitud}&lat=${latitud}&ac=0&unit=metric&output=json`;
-
-
-    return new Promise((resolve, reject) => {
-      return this.httpC.get(`${TIEMPO}`).subscribe({
-        next: (response: any) => {
-          if (response.data) {
-            response = response.data;
-          }
-
-          resolve(response);
-        },
-        error: error => reject(error)
-      });
-    });
-
-  }
-
-
   // async obtenerDatosClima(longitud: any, latitud: any): Promise<any> {
   //
-  //   const  response = await fetch(`https://www.7timer.info/bin/civillight.php?lon=${longitud}&lat=${latitud}&ac=0&unit=metric&output=json`)
-  //   return await response.json();
-  // }
+  //   const TIEMPO: any = `https://www.7timer.info/bin/civillight.php?lon=${longitud}&lat=${latitud}&ac=0&unit=metric`;
+  //
+  //
+  //     return new Promise((resolve, reject) => {
+  //       return this.httpC.get(`${TIEMPO}`).subscribe({
+  //         next: (response: any) => {
+  //           if (response.data) {
+  //             response = response.json();
+  //           }
+  //
+  //           resolve(response);
+  //         },
+  //         error: error => reject(error)
+  //       });
+  //     });
+  //
+  //     }
 
+
+    async obtenerDatosClima(longitud: any, latitud: any): Promise<any> {
+      const TIEMPO: any = `https://www.7timer.info/bin/civillight.php?lon=${longitud}&lat=${latitud}&ac=0&unit=metric&output=json`;
+
+      const  response = await fetch(TIEMPO)
+      return await response.json();
+    }
 
   public getClearDate(value: any): any {
     value = "" + value;

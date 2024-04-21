@@ -25,7 +25,10 @@ export class SesionService {
 
     if (typeof window !== 'undefined') {
       const storage: any = localStorage.getItem('authStore');
-      const data = JSON.parse(storage ?? storage);
+      let data: any;
+      if (storage) {
+        data = JSON.parse(storage ?? storage);
+      }
       this.data.next(data) ;
     }
 
