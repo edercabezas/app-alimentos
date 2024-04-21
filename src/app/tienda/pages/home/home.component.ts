@@ -6,7 +6,6 @@ import {MatIcon} from "@angular/material/icon";
 import {CrudService} from "../../services/crud/crud.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {ReloadComponent} from "../../component/reload/reload.component";
-import {SharedService} from "../../services/shared/shared.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CartComponent} from "../../component/cart/cart.component";
 import {WatherComponent} from "../../component/wather/wather.component";
@@ -35,7 +34,6 @@ export default class HomeComponent implements OnInit{
   statusProduct: boolean = true;
   constructor(private _crud: CrudService,
               private activatedRoute: ActivatedRoute,
-              private _share: SharedService,
               private router: Router,
               public dialog: MatDialog) {
     this.products = [];

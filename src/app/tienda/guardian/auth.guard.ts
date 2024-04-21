@@ -31,7 +31,7 @@ export class GuardsGuard implements CanActivate {
     let data: any
 
     if (this.authData) {
-      data = JSON.parse(this.authData);
+      data = JSON.parse(this.authData ?? this.authData);
     }
 
 

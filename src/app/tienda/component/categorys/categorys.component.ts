@@ -4,7 +4,6 @@ import {MatList, MatListItem} from "@angular/material/list";
 import {MatButton} from "@angular/material/button";
 import {JsonPipe, NgFor, NgIf} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
-import {SharedService} from "../../services/shared/shared.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -25,7 +24,7 @@ import {Router} from "@angular/router";
 export class CategorysComponent implements OnInit{
   @Output() optionSelect: EventEmitter<any>;
   categorys: any = CATEGORY.data;
-  constructor(private _share: SharedService, private router: Router) {
+  constructor( private router: Router) {
     this.optionSelect = new EventEmitter();
   }
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import {Clima} from "../../interface/clima";
 import {JsonPipe, NgFor, NgIf} from "@angular/common";
 import {FechaNombrePipe} from "../../pipe/fecha-nombre.pipe";
 import {EstadoDayPipe} from "../../pipe/estado-day.pipe";
+import {AlertService} from "../../services/alert/alert.service";
 
 @Component({
   selector: 'app-wather',
@@ -29,7 +30,7 @@ export class WatherComponent implements OnInit{
   hours: string;
   detailNow!: Clima;
   detailNewDay: Clima[];
-  constructor(private api: ApisService) {
+  constructor(private api: ApisService, private alert: AlertService) {
 
     this.city = '';
     this.deparment = '';
@@ -59,13 +60,17 @@ export class WatherComponent implements OnInit{
 
       this._getObtenerClima(response.longitude, response.latitude);
 
-
+      console.log(response)
 
     }).catch(() => {
 
-      navigator.geolocation.getCurrentPosition((response: any) => {
-        this._getObtenerClima(response.coords.longitude, response.coords.latitude);
-      });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((response: any) => {
+          this._getObtenerClima(response.coords.longitude, response.coords.latitude);
+        });
+
+      }
+
     });
 
 
@@ -76,11 +81,16 @@ export class WatherComponent implements OnInit{
 
     this.api.obtenerDatosClima(setLongitud, setLatitudes).then((response: any) => {
 
+      console.log(response)
+
       this.detailNow = response.dataseries.splice(0, 1)[0];
       this.detailNewDay = response.dataseries;
 
 
-    })
+    }).catch((error: any) => {
+      console.log(error);
+      this.alert.showToasterWarning('En estos momento el servicio encargado de mostrar el clima esta respondiendo')
+    });
   }
 
 

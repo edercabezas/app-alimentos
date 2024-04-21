@@ -79,7 +79,6 @@ export default class DetailCartComponent implements OnInit{
   showValueShopping(): void {
     this.cartS.currentMessage.subscribe((response: any) => {
       if (response) {
-        console.log(response);
         this.valorTotal = response.reduce((item1: any, item2: any) => {
           return item1 + (item2.price * item2.cantidad);
         }, 0);
@@ -133,7 +132,7 @@ export default class DetailCartComponent implements OnInit{
 
       if (typeof window !== 'undefined') {
         const storage: any = localStorage.getItem('authStore');
-        const data = JSON.parse(storage);
+        const data = JSON.parse(storage ?? storage);
       }
       this.userRegister  = response;
 

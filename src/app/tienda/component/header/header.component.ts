@@ -69,12 +69,6 @@ export class HeaderComponent implements OnInit{
 
   llamarUsuarioData() {
     this.storage.currentMessage.subscribe(response => {
-
-      if (typeof window !== 'undefined') {
-        const storage: any = localStorage.getItem('authStore');
-        const data = JSON.parse(storage);
-      }
-
       this.userRegister  = response;
 
     });

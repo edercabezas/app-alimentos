@@ -5,7 +5,6 @@ import {MatIcon} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {NgFor, NgIf} from "@angular/common";
-import {SharedService} from "../../services/shared/shared.service";
 import {CartComponent} from "../cart/cart.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -38,7 +37,6 @@ export class SearchComponent implements OnInit{
   constructor(
               private _crud: CrudService,
               private activatedRoute: ActivatedRoute,
-              private _share: SharedService,
               public dialog: MatDialog,
               private router: Router) {
     this.mostrarResultados =  false;

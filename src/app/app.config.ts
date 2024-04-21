@@ -9,11 +9,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import {HttpClientModule} from "@angular/common/http";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {provide:LocationStrategy, useClass:HashLocationStrategy},
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),

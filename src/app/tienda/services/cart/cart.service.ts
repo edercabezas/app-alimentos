@@ -21,7 +21,7 @@ export class CartService {
     console.log(data)
     let dataCart: any;
     dataCart = localStorage.getItem('alimentos');
-    this.carritoAnterior = JSON.parse(dataCart);
+    this.carritoAnterior = JSON.parse(dataCart ?? dataCart);
     this.addProductoCarrito.push(data);
 
     if (this.addProductoCarrito) {
@@ -47,7 +47,7 @@ export class CartService {
     let items: any;
     let datos: any;
     items = localStorage.getItem('alimentos');
-    items = JSON.parse(items);
+    items = JSON.parse(items ?? items);
 
     if (proceso === 1) {
       items[indice].product_amount++;
@@ -70,7 +70,7 @@ export class CartService {
 
     if (typeof window !== 'undefined') {
       data = localStorage.getItem('alimentos');
-      this.resulCard.next(JSON.parse(data));
+      this.resulCard.next(JSON.parse(data ?? data));
     }
 
   }
@@ -81,7 +81,7 @@ export class CartService {
     let dataCarrito: any;
     let i: any;
     carrito = localStorage.getItem('alimentos');
-    dataCarrito = JSON.parse(carrito);
+    dataCarrito = JSON.parse(carrito ?? carrito);
     i = dataCarrito.indexOf(data);
 
     dataCarrito.splice(index, 1);
