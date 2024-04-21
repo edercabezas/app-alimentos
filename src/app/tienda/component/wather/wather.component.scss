@@ -10,8 +10,8 @@ mat-card {
   align-items: center;
 
   .img {
-    height: 120px;
-    width: 120px;
+    height: 68px;
+    width: 69px;
 
     img {
       width: 100%;
@@ -28,8 +28,8 @@ mat-card {
   align-items: center;
 
   .img {
-    height: 120px;
-    width: 120px;
+    height: 68px;
+    width: 69px;
 
     img {
       width: 100%;
@@ -50,7 +50,13 @@ mat-card {
 .container__ubicacion {
   span {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 15px;
     color: #212121;
   }
 }
+
+
+  h1, h2 {
+    font-size: 16px;
+  }
+

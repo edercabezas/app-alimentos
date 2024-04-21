@@ -4,6 +4,7 @@ import {MatCard} from "@angular/material/card";
 import {Clima} from "../../interface/clima";
 import {JsonPipe, NgFor, NgIf} from "@angular/common";
 import {FechaNombrePipe} from "../../pipe/fecha-nombre.pipe";
+import {EstadoDayPipe} from "../../pipe/estado-day.pipe";
 
 @Component({
   selector: 'app-wather',
@@ -13,7 +14,8 @@ import {FechaNombrePipe} from "../../pipe/fecha-nombre.pipe";
     NgFor,
     NgIf,
     JsonPipe,
-    FechaNombrePipe
+    FechaNombrePipe,
+    EstadoDayPipe
   ],
   templateUrl: './wather.component.html',
   styleUrl: './wather.component.scss'
@@ -75,10 +77,7 @@ export class WatherComponent implements OnInit{
     this.api.obtenerDatosClima(setLongitud, setLatitudes).then((response: any) => {
 
       this.detailNow = response.dataseries.splice(0, 1)[0];
-      this.detailNewDay = response.dataseries.splice(1, 6);
-
-     // this.detailNow
-
+      this.detailNewDay = response.dataseries;
 
 
     })
