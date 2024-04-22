@@ -1,27 +1,45 @@
-# TiendaDeAlimentos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
 
-## Development server
+## Cordial saludo, espero que se encuentre muy bien el presente correo es para enviar el desarrollo de la prueba técnicas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Adjunto encontrará la información necesaria
 
-## Code scaffolding
+## 1: adjunto el proyecto desplegado en el servidor cabe resaltar que no use Azure https://moises.top/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 2: Adjunto repositorio en GitHub
+## https://github.com/edercabezas/app-alimentos
 
-## Build
+1. `El FrontEnd está desarrollado en la última versión de angular 17`
+2. `para almacenar la información utilice firebase en este caso solo debe seguir los siguientes pasos`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Nota
+debes contar con node instalado recomendable la versión estable actual y también tener npm
 
-## Running unit tests
+Para correr el Proyecto es necesario seguir estos paso
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1: `clonar el repositorio que esta alojado en GitHub`
+2: `Ingresar a la carpeta del proyecto`
+3: `instalar las dependencias de angular con el siguiente comando`
+(`npm install` o `npm i`)
+4: para correr el proyecto (sería: `ng serve` o `ng s`) si quiere que le abra directamente en el navegador solo corre (`ng serve -o`)
+5: `para el back no sería necesario ejecutar nada porque todo está en firebase es un servicio de google`
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+adicional se
 
-## Further help
+## Se está consumiendo dos api para ver el estado del clima o el tiempo
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 1: https://api.ipbase.com/v1/json/ 
+Eta api se cosume para poder obtener los datos de la ubicación actual de la persona que ingresó a la página y asi poder saber el pais, estado o departamento y ciudad, longitud, latitud etc., ya que para consumir la siguiente api se requiere la longitud y latitud
+
+## 2: https://www.7timer.info/bin/civillight.php?lon=${longitud}&lat=${latitud}&ac=0&unit=metric
+Esta api requiere dos parámetros como indique anteriormente la longitud y latitud para obtener el estado del clima de mi location
+
+La aplicación cuenta con dos roles Cliente que sería todo el que se registre para hacer una compra y administrador el cual se encarga de crear productos, actualizar, cambiar estados, eliminar y hasta la opción de crear más administradores
+
+Adjunto un usuario
+
+Usuario administrador, la aplicación cuenta con la validación que solo los administradores puedan ingresar a ver ese módulo
+
+## Usuario: administrador@gmail.com
+##  Clave: 123456789
