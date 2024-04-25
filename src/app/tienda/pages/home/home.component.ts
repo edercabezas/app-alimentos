@@ -9,6 +9,10 @@ import {ReloadComponent} from "../../component/reload/reload.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CartComponent} from "../../component/cart/cart.component";
 import {WatherComponent} from "../../component/wather/wather.component";
+import {Favorite} from "../../interface/favorite";
+import {SesionService} from "../../services/sesion-global/sesion.service";
+import {AuthComponent} from "../../component/auth/auth.component";
+import {AlertService} from "../../services/alert/alert.service";
 
 
 @Component({
@@ -32,17 +36,21 @@ export default class HomeComponent implements OnInit{
 
   products: any[];
   statusProduct: boolean = true;
+  setFavoriteData!: Favorite;
+  userRegister: any;
   constructor(private _crud: CrudService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog) {
+              private storage: SesionService,
+              public dialog: MatDialog,
+              private alert: AlertService ) {
     this.products = [];
   }
 
 
   ngOnInit(): void {
 
-
+    this.llamarUsuarioData();
     this.activatedRoute.params.subscribe((value: any) => {
 
       if (value && value.id > 0) {
@@ -52,6 +60,8 @@ export default class HomeComponent implements OnInit{
       }
 
     });
+
+    this._setFavorites();
 
   }
 
@@ -109,7 +119,82 @@ export default class HomeComponent implements OnInit{
 
   }
 
+  llamarUsuarioData() {
+    this.storage.currentMessage.subscribe(response => {
+      this.userRegister  = response;
+
+    });
+  }
 
 
+public setFavorite(data: any): void {
+
+  console.log(data)
+
+    if(!this.userRegister) {
+      this.openModalLogin(1);
+      return;
+    }
+
+    this.setFavoriteData.id_favorite = this._crud.generateId();
+    this.setFavoriteData.user_id = this.userRegister.id;
+    this.setFavoriteData.id = data.id;
+    this.setFavoriteData.nameProduct = data.nameProduct;
+    this.setFavoriteData.code = data.code;
+    this.setFavoriteData.img = data.img;
+    this.setFavoriteData.category = data.category;
+    this.setFavoriteData.price = data.price;
+    this.setFavoriteData.prefijo = data.prefijo;
+    this.setFavoriteData.status = data.status;
+    this.setFavoriteData.size = data.size;
+    this.setFavoriteData.description = data.description;
+    this.setFavoriteData.value_prefijo = data.value_prefijo;
+
+    console.log(this.setFavoriteData)
+
+
+  this._crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
+
+    if (response) {
+      this.alert.showToasterFull('El producto se agrego a tus favoritos');
+
+    }
+
+
+  }).catch((error: any) => {
+    console.log('Error al agregar a tus favoritos', error);
+  });
+
+}
+
+private _setFavorites(): void {
+    this.setFavoriteData = {
+      id: '',
+      nameProduct: '',
+      code: '',
+      img: '',
+      category: 0,
+      id_favorite: '',
+      price: 0,
+      prefijo: '',
+      status: true,
+      size: 0,
+      user_id: 0,
+      description: '',
+      value_prefijo: '',
+    }
+}
+
+
+  public openModalLogin(value: number): void {
+
+    this.dialog.open(AuthComponent, {
+      width: '500px',
+      height: '410px',
+      data: {
+        item: value
+      }
+    });
+  }
 
 }

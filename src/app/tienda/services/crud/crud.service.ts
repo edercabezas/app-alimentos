@@ -66,4 +66,38 @@ export class CrudService {
   async deleteColection(table: string, colectionID: any): Promise<any> {
     this.db.collection(`${table}`).doc(colectionID).delete();
   }
+
+
+  public generateId(): any {
+
+    let getDay = new Date().getDay().toString();
+    const constGetMonth = new Date().getMonth() + 1;
+    let getHours = new Date().getHours().toString();
+    let getMinutes = new Date().getMinutes().toString();
+    const getFullYear =new Date().getFullYear().toString();
+    let getMonth = constGetMonth.toString()
+
+    if (getDay.length === 1) {
+      getDay = '0'+getDay;
+    }
+
+    if (getMonth.length === 1) {
+      getMonth = '0'+getMonth;
+    }
+
+    if (getMonth.length === 1) {
+      getHours = '0'+getHours;
+    }
+
+    if (getMinutes.length === 1) {
+      getMinutes = '0'+getMinutes;
+    }
+
+
+    const dataFinish = `${getDay}${getMonth}${getFullYear}${getHours}${getMinutes}`;
+
+    return dataFinish.toString();
+
+  }
+
 }

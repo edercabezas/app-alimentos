@@ -2,7 +2,7 @@
 
 <div class="container-big">
 
-
+<h1>Listado de mis Favoritos</h1>
 
   <div class="container___products__dest"></div>
   <div class="container__list__products">
@@ -22,9 +22,9 @@
                 <p>{{ items.nameProduct }}</p>
               </div>
 
-                <div class="container-prefijo">
-                  <span> {{ items.value_prefijo}} - {{ items.prefijo}} </span>
-                </div>
+              <div class="container-prefijo">
+                <span> {{ items.value_prefijo}} - {{ items.prefijo}} </span>
+              </div>
 
               <div class="container__price">
                 <span> {{ items.price | currency }} </span>
@@ -39,13 +39,10 @@
                     <mat-icon>local_mall</mat-icon>
                     <span>Carrito</span>
                   </button>
-                  <button mat-flat-button color="primary" class="button__favorite button__add__favorite" (click)="setFavorite(items)">
-
-                    <mat-icon>favorite</mat-icon>
-                    <span>Favorito</span>
-
+                  <button mat-flat-button color="primary" class="button__cart button__add__favorite" (click)="deleteregister(items)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Eliminar</span>
                   </button>
-
                 </div>
 
               </div>
@@ -70,7 +67,7 @@
 
             <img src="assets/img/products/not__products.jpg" alt="">
 
-            <p> No hay productos asociados a la categoria ingresa al siguiente link para buscar mas productos <span (click)="getProducts()">has Clic aquí</span></p>
+            <p> No hay productos asociados a la categoria ingresa al siguiente link para buscar mas productos <span routerLink="/">Clic aquí</span></p>
 
           </div>
 
@@ -84,16 +81,4 @@
   </div>
 
 
-
-  <div class="container__clima">
-
-    <app-wather></app-wather>
-
-  </div>
-
 </div>
-
-
-
-
-<app-reload *ngIf="statusProduct"  [title]="'Un momento por favor ......'"></app-reload>

@@ -67,6 +67,7 @@
 .container__button {
   button {
     width: 100%;
+    margin-bottom: 10px;
   }
 }
 
@@ -103,4 +104,17 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+
+.container__disponibl {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  span {
+    margin: 10px;
+  }
 }

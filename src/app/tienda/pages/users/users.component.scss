@@ -1,0 +1,30 @@
+mat-form-field {
+  width: 100%;
+}
+
+.container__user {
+  mat-card {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+
+  .container__totalCompra {
+    margin-bottom: 15px;
+
+    .title__pagar {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-weight: 400;
+      color: #9f9a9a;
+    }
+
+    .value__pagar {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-weight: 500;
+      color: #22a132;
+    }
+  }
+}

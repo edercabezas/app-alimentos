@@ -30,6 +30,15 @@
       </p>
 
 
+      <div class="container__disponibl">
+        <div class="container__text">
+          Disponible:
+        </div>
+        <div class="container__result">
+          <span> {{ setProduct.size }}</span>
+        </div>
+      </div>
+
       <div class="footer__button">
         <div class="container__button">
 
@@ -37,7 +46,7 @@
             <mat-icon>local_mall</mat-icon>
             <span>Agregar al Carrito</span>
           </button>
-          <button mat-flat-button color="primary" class="button__favorite button__add__favorite">
+          <button mat-flat-button color="primary" class="button__favorite button__add__favorite" (click)="setFavorite(setProduct)">
 
             <mat-icon>favorite</mat-icon>
             <span>Agregar a Favorito</span>

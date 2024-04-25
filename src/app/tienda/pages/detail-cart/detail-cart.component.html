@@ -69,7 +69,7 @@
           <div class="container__text">
            <div class="div">
              <h1>No tienes productos agregados</h1>
-             <p>Presiona aqui para agregar productos <span routerLink="/">Productos</span></p>
+             <p>Ingresa al siguiente link para agregar productos<span routerLink="/">has Clic aquí</span></p>
            </div>
           </div>
 
@@ -90,88 +90,62 @@
 
 
 
-          <mat-card>
+          <mat-card *ngIf="userRegister && colectionID ; else notData">
+              <h2>Informacion de entrega del pedido</h2>
+            <p>
+              <span>Nombre: {{ dataPay.nombre }}</span>
+            </p>
+
+            <p>
+              <span>Apellido: {{ dataPay.apellido }}</span>
+            </p>
+
+            <p>
+              <span>Telefono: {{ dataPay.telefono }}</span>
+            </p>
+
+            <p>
+              <span>Ciudad: {{ dataPay.ciudad }}</span>
+            </p>
+
+            <p>
+              <span>Dirección: {{ dataPay.direccion }}</span>
+            </p>
+
+            <p>
+              <span>Barrio: {{ dataPay.barrio }}</span>
+            </p>
+
+            <p>
+              <span>Observacion: {{ dataPay.observation }} </span>
+            </p>
 
 
-            <div class="form__compra">
-
-              <div class="row">
-                <div class="col-12 col-lg-6">
-
-                  <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Nombre" [(ngModel)]="dataPay.nombre">
-                  </mat-form-field>
-
-                </div>
-                <div class="col-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Apellido</mat-label>
-                    <input matInput placeholder="Apellido" [(ngModel)]="dataPay.apellido">
-                  </mat-form-field>
-
-                </div>
-              </div>
-
-
-              <div class="row">
-                <div class="col-12 col-lg-6">
-
-                  <mat-form-field appearance="outline">
-                    <mat-label>Ciudad</mat-label>
-                    <input matInput placeholder="Ciudad" [(ngModel)]="dataPay.ciudad">
-                  </mat-form-field>
-
-                </div>
-                <div class="col-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Barrio</mat-label>
-                    <input matInput placeholder="Barrio" [(ngModel)]="dataPay.barrio">
-                  </mat-form-field>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Dirección</mat-label>
-                    <input matInput placeholder="Dirección" [(ngModel)]="dataPay.direccion">
-                  </mat-form-field>
-
-                </div>
-
-              </div>
-
-
-              <div class="row">
-                <div class="col-12 col-lg-6">
-
-                  <mat-form-field appearance="outline">
-                    <mat-label>Telefono</mat-label>
-                    <input matInput placeholder="Telefono" [(ngModel)]="dataPay.telefono">
-                  </mat-form-field>
-
-                </div>
-                <div class="col-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Correo</mat-label>
-                    <input matInput placeholder="Correo" [(ngModel)]="dataPay.correo">
-                  </mat-form-field>
-
-                </div>
-              </div>
-
-
-            </div>
-
+            <h2>para actualizar tú información <span routerLink="/my-user">Ingresa aqui</span></h2>
           </mat-card>
 
-          <mat-card>
-            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="setPay()"
-                    [disabled]="validaForm()"
-            >
-              <span>Realizar compra</span>
+
+          <ng-template #notData>
+
+            <mat-card *ngIf="userRegister && !colectionID" >
+                <span>Por favor actualiza tus datos de entrega</span>
+                <button mat-flat-button color="primary" class="button__favorite button__finis__pay" routerLink="/my-user" >
+                  <span>Actualizar datos</span>
+                </button>
+
+            </mat-card>
+
+          </ng-template>
+
+          <mat-card *ngIf="!userRegister">
+            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="openModalLogin( 1 )" >
+              <span>Iniciar sesión</span>
+            </button>
+          </mat-card>
+
+          <mat-card *ngIf="userRegister">
+            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="setPay()" >
+              <span>Realizar Compra</span>
             </button>
           </mat-card>
         </div>

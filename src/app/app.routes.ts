@@ -15,6 +15,26 @@ export const routes: Routes = [
   },
 
   {
+    path: 'detail-product/:id/:name',
+    loadComponent: () => import('./tienda/pages/detail-product/detail-product.component')
+  },
+
+  {
+    path: 'cart',
+    loadComponent: () => import('./tienda/pages/detail-cart/detail-cart.component')
+  },
+
+  {
+    path: 'my-user',
+    loadComponent: () => import('./tienda/pages/users/users.component')
+  },
+
+  {
+    path: 'favorite',
+    loadComponent: () => import('./tienda/pages/favorites/favorites.component')
+  },
+
+  {
     path: 'products',
     loadComponent: () => import('./tienda/dashboard/list-product/list-product.component'),
     canActivate: [GuardsGuard]
@@ -36,15 +56,7 @@ export const routes: Routes = [
     path: 'edit-product/:id',
     loadComponent: () => import('./tienda/dashboard/create-product/create-product.component'),
     canActivate: [GuardsGuard]
-  },
-
-  {
-    path: 'detail-product/:id/:name',
-    loadComponent: () => import('./tienda/pages/detail-product/detail-product.component')
-  },
-
-  {
-    path: 'cart',
-    loadComponent: () => import('./tienda/pages/detail-cart/detail-cart.component')
   }
+
+
 ];

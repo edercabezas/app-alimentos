@@ -1,5 +1,6 @@
-export interface DataPay {
+export interface DataPayUsers {
   id: string;
+  user_id: number;
   nombre: string;
   apellido: string;
   ciudad: string;
@@ -7,4 +8,5 @@ export interface DataPay {
   direccion: string;
   telefono: string;
   correo: string;
+  observation: string;
 }

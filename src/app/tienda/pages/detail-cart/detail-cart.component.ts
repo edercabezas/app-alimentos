@@ -9,12 +9,15 @@ import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {DataPay} from "../../interface/data-pay";
 import {CrudService} from "../../services/crud/crud.service";
 import Swal from 'sweetalert2';
 import {SesionService} from "../../services/sesion-global/sesion.service";
 import {AuthComponent} from "../../component/auth/auth.component";
 import {MatDialog} from "@angular/material/dialog";
+import {DataPayUsers} from "../../interface/data-pay";
+import {Order} from "../../interface/order";
+import {DetailOrder} from "../../interface/detail-order";
+import {Products} from "../../interface/products";
 @Component({
   selector: 'app-detail-cart',
   standalone: true,
@@ -41,23 +44,30 @@ export default class DetailCartComponent implements OnInit{
   public valorTotal: number;
   public dataCart: any;
   public userRegister: any
+  public colectionID: any
+  public colectionIDProduct: any
+  dataPay!: DataPayUsers;
+  setOrderData!: Order;
+  setOrDetailOrderData!: DetailOrder;
+  getDataProduct!: Products;
 
-  dataPay!: DataPay;
   constructor(
     private cartS: CartService,
     private alert: AlertService,
     private router: Router,
     private storage: SesionService,
     public dialog: MatDialog,
-    private crud: CrudService) {
+    private _crud: CrudService) {
     this.valorTotal = 0;
   }
 
   ngOnInit() {
     this.showDataCartStorage();
     this.showValueShopping();
-    this.setDataUser();
     this.llamarUsuarioData();
+    this.setDataUser();
+    this.setreateOrder();
+
   }
 
 
@@ -86,13 +96,7 @@ export default class DetailCartComponent implements OnInit{
     });
   }
 
-
   public setPay(): void {
-
-    if (!this.userRegister) {
-      this.openModalLogin(1);
-      return;
-    }
 
     Swal.fire({
       title: "¿Está seguro?",
@@ -106,14 +110,11 @@ export default class DetailCartComponent implements OnInit{
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Muy bien!",
-          text: "El pedido fue realizado de forma correcta.",
-          icon: "success"
-        });
-        this.cartS.removeStorage();
-        this.setDataUser();
-        this.router.navigate(['/']);
+
+        this.crearOrden();
+
+        //this.cartS.removeStorage();
+       // this.router.navigate(['/']);
 
       } else {
         Swal.fire({
@@ -127,20 +128,103 @@ export default class DetailCartComponent implements OnInit{
   }
 
 
+
   llamarUsuarioData() {
     this.storage.currentMessage.subscribe(response => {
-
-      if (typeof window !== 'undefined') {
-        const storage: any = localStorage.getItem('authStore');
-        const data = JSON.parse(storage ?? storage);
-      }
       this.userRegister  = response;
+      this.getDataUSerPay();
 
     });
   }
 
 
+  public crearOrden(): void {
 
+      const dateOrder = new Date();
+      this.setOrderData.id = this._crud.generateId();
+      this.setOrderData.id_data_user = this.dataPay.id;
+      this.setOrderData.date_order = dateOrder.toISOString();
+      this.setOrderData.user_id = this.userRegister?.id;
+
+      this._crud.setProduct('/order', this.setOrderData).then((response: any) => {
+
+        if (response) {
+           this.crearDetalleOrden(this.setOrderData.id);
+          this.actualizarProducto();
+        }
+
+      })
+
+
+  }
+  public crearDetalleOrden(order: number): void {
+
+    this.dataCart.forEach((detail: any) => {
+
+
+       this.setOrDetailOrderData.detail_id = this._crud.generateId();
+       this.setOrDetailOrderData.order_id  = order;
+       this.setOrDetailOrderData.img = detail.img;
+       this.setOrDetailOrderData.price = detail.price;
+       this.setOrDetailOrderData.id_producto = detail.id;
+       this.setOrDetailOrderData.value_prefijo = detail.value_prefijo;
+       this.setOrDetailOrderData.prefijo = detail.prefijo;
+       this.setOrDetailOrderData.cantidad = detail.cantidad;
+       this.setOrDetailOrderData.category = detail.category;
+       this.setOrDetailOrderData.nameProduct = detail.nameProduct;
+
+      this._crud.setProduct('/detailOrder', this.setOrDetailOrderData).then((response: any) => {
+
+
+        Swal.fire({
+          title: "Muy bien!",
+          text: "El pedido fue realizado de forma correcta.",
+          icon: "success"
+        });
+
+      }).catch(() => {
+        this.alert.showToasterError('Error al crear la Orden');
+      });
+
+
+
+    });
+
+
+
+  }
+  actualizarProducto(): void {
+
+    this.dataCart.forEach((product: any) => {
+
+
+      this._crud.readGeneral('/products', 'id', product.id).then((response: any) => {
+        response.subscribe(( res: any) => {
+
+          const dataProduct = res[0].payload.doc.data();
+          this.colectionIDProduct  = res[0].payload.doc.id;
+          this.getDataProduct = dataProduct as Products;
+
+          this.getDataProduct.size =  +this.getDataProduct.size  - +product.cantidad;
+
+          this.alert.showToasterFull('El pedido fue realizado de forma correcta.');
+          this.cartS.removeStorage();
+          this.router.navigate(['/']);
+          location.reload();
+
+          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct).then((response: any) => {
+          }).catch((error: any) => {
+            this.alert.showToasterError('Hubo un error al actualizar el producto');
+          });
+
+
+
+        });
+      })
+
+    });
+
+  }
   public openModalLogin(value: number): void {
 
     this.dialog.open(AuthComponent, {
@@ -152,21 +236,23 @@ export default class DetailCartComponent implements OnInit{
     });
   }
 
+  getDataUSerPay(): void {
 
-  validaForm(): boolean {
-    return this.dataPay.nombre === ''
-      || this.dataPay.apellido === ''
-      || this.dataPay.barrio === ''
-      || this.dataPay.ciudad === ''
-      || this.dataPay.direccion === ''
-      || this.dataPay.nombre === ''
-      || this.dataPay.telefono === '';
+    this._crud.readGeneral('/data_pay', 'user_id', this.userRegister?.id).then((response: any) => {
+      response.subscribe(( res: any) => {
+        const dataProduct = res[0].payload.doc.data();
+        this.colectionID  = res[0].payload.doc.id;
+        this.dataPay = dataProduct as DataPayUsers;
+
+      });
+    })
+
   }
-
 
   setDataUser(): void {
 
     this.dataPay = {
+      user_id: 0,
       id: '',
       apellido: '',
       barrio: '',
@@ -174,8 +260,33 @@ export default class DetailCartComponent implements OnInit{
       correo: '',
       direccion: '',
       nombre: '',
-      telefono: ''
+      telefono: '',
+      observation: '',
     }
 
   }
+
+  setreateOrder(): void {
+    this.setOrderData = {
+      id: 0,
+      user_id: 0,
+      date_order: '',
+      id_data_user: ''
+    };
+    this.setOrDetailOrderData = {
+      img: '',
+      price: 0,
+      nameProduct: '',
+      category: 0,
+      detail_id: 0,
+      cantidad: 0,
+      order_id: 0,
+      prefijo: '',
+      value_prefijo: '',
+      description: '',
+      id_producto: ''
+    }
+
+  }
+
 }

@@ -39,6 +39,14 @@
         </div>
 
 
+        <div class="container__disponibl">
+          <div class="container__text">
+            Disponible:
+          </div>
+          <div class="container__result">
+            <span> {{ dataCart.size }}</span>
+          </div>
+        </div>
 
         <div class="container__option__size">
 
@@ -79,6 +87,13 @@
             <button mat-flat-button color="primary" class="button__cart button__back__add__cart " (click)="addCart()">
               <mat-icon>local_mall</mat-icon>
               <span>Agregar al Carrito</span>
+            </button>
+
+            <button mat-flat-button color="primary" class="button__favorite button__add__favorite" (click)="setFavorite(dataCart)">
+
+              <mat-icon>favorite</mat-icon>
+              <span>Agregar a Favorito</span>
+
             </button>
 
           </div>

@@ -58,6 +58,12 @@ export class HeaderComponent implements OnInit{
 
   public openModalLogin(value: number): void {
 
+    if ( this.userRegister) {
+      this.router.navigate(['/favorite']);
+      return;
+    }
+
+
     this.dialog.open(AuthComponent, {
       width: '500px',
       height: '410px',
