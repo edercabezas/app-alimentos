@@ -9,13 +9,13 @@
   }
 
   .img {
-    height: 150px;
-    width: 180px;
+    height: 120px;
+    width: 120px;
     img {
       width: 100%;
       height: 100%;
       padding: 5px;
-      border-radius: 5px;
+      border-radius: 20%;
     }
   }
 
@@ -139,5 +139,13 @@ h2 {
     &:hover {
       color: #8c360d;
     }
+  }
+}
+
+
+.information__comprador {
+  p {
+    font-size: 15px;
+    font-weight: 500;
   }
 }

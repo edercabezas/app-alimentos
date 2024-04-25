@@ -2,8 +2,6 @@
 
 <div class="container-big">
 
-
-
   <div class="container___products__dest"></div>
   <div class="container__list__products">
 
@@ -19,7 +17,7 @@
             <div class="container-description">
 
               <div class="container__name">
-                <p>{{ items.nameProduct }}</p>
+                <p [title]="items.nameProduct">{{ items.nameProduct }}</p>
               </div>
 
                 <div class="container-prefijo">
@@ -87,7 +85,7 @@
 
   <div class="container__clima">
 
-    <app-wather></app-wather>
+<!--    <app-wather></app-wather>-->
 
   </div>
 

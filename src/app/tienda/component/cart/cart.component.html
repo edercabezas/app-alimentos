@@ -44,7 +44,7 @@
             Disponible:
           </div>
           <div class="container__result">
-            <span> {{ dataCart.size }}</span>
+            <span> {{dataCart.size - cartProductQuantity }}</span>
           </div>
         </div>
 
@@ -56,16 +56,18 @@
 
               <mat-form-field appearance="outline">
                 <div class="container__left">
-                  <button mat-mini-fab color="accent" (click)="sumCart(false)">
-                    <mat-icon>remove</mat-icon>
+
+                  <button mat-mini-fab color="accent" (click)="sumCart(true)">
+                    <mat-icon>add</mat-icon>
                   </button>
+
                 </div>
                 <mat-label>Cantidad</mat-label>
                 <input matInput placeholder="Placeholder" [(ngModel)]="valueForm" type="number" (keyup)="setValueInput()">
 
                 <div class="container__right">
-                  <button mat-mini-fab color="accent" (click)="sumCart(true)">
-                    <mat-icon>add</mat-icon>
+                  <button mat-mini-fab color="accent" (click)="sumCart(false)">
+                    <mat-icon>remove</mat-icon>
                   </button>
                 </div>
               </mat-form-field>

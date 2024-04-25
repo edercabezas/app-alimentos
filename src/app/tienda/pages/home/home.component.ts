@@ -13,6 +13,7 @@ import {Favorite} from "../../interface/favorite";
 import {SesionService} from "../../services/sesion-global/sesion.service";
 import {AuthComponent} from "../../component/auth/auth.component";
 import {AlertService} from "../../services/alert/alert.service";
+import {CartService} from "../../services/cart/cart.service";
 
 
 @Component({
@@ -38,11 +39,12 @@ export default class HomeComponent implements OnInit{
   statusProduct: boolean = true;
   setFavoriteData!: Favorite;
   userRegister: any;
+
   constructor(private _crud: CrudService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private storage: SesionService,
-              public dialog: MatDialog,
+              public  dialog: MatDialog,
               private alert: AlertService ) {
     this.products = [];
   }
@@ -86,6 +88,7 @@ export default class HomeComponent implements OnInit{
 
       response.subscribe((res: any) => {
         this.products = res;
+        console.log(res)
         this.statusProduct = false;
 
 
@@ -196,5 +199,7 @@ private _setFavorites(): void {
       }
     });
   }
+
+
 
 }

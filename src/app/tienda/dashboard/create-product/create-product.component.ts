@@ -149,7 +149,8 @@ export default class CreateProductComponent implements OnInit {
       code: '',
       value_prefijo: '',
       id: '',
-      status: true
+      status: true,
+      colection: ''
     };
   }
 

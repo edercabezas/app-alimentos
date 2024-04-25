@@ -42,7 +42,7 @@ import {Products} from "../../interface/products";
 export default class DetailCartComponent implements OnInit{
 
   public valorTotal: number;
-  public dataCart: any;
+  public dataCart: any[];
   public userRegister: any
   public colectionID: any
   public colectionIDProduct: any
@@ -59,6 +59,9 @@ export default class DetailCartComponent implements OnInit{
     public dialog: MatDialog,
     private _crud: CrudService) {
     this.valorTotal = 0;
+    this.dataCart = []
+
+    this.getDataProduct = {} as Products;
   }
 
   ngOnInit() {
@@ -73,7 +76,13 @@ export default class DetailCartComponent implements OnInit{
 
   showDataCartStorage(): void {
     this.cartS.currentMessage.subscribe((response: any) => {
-      this.dataCart = response;
+
+      if (response) {
+        this.dataCart = response;
+      } else {
+        this.dataCart = [];
+      }
+
     });
   }
 
@@ -113,6 +122,13 @@ export default class DetailCartComponent implements OnInit{
 
         this.crearOrden();
 
+        Swal.fire({
+          title: "Muy bien!",
+          text: "El pedido fue realizado de forma correcta.",
+          icon: "success"
+        });
+
+
         //this.cartS.removeStorage();
        // this.router.navigate(['/']);
 
@@ -150,7 +166,7 @@ export default class DetailCartComponent implements OnInit{
 
         if (response) {
            this.crearDetalleOrden(this.setOrderData.id);
-          this.actualizarProducto();
+          //this.actualizarProducto();
         }
 
       })
@@ -158,7 +174,7 @@ export default class DetailCartComponent implements OnInit{
 
   }
   public crearDetalleOrden(order: number): void {
-
+    this.getDataProductCart();
     this.dataCart.forEach((detail: any) => {
 
 
@@ -173,18 +189,7 @@ export default class DetailCartComponent implements OnInit{
        this.setOrDetailOrderData.category = detail.category;
        this.setOrDetailOrderData.nameProduct = detail.nameProduct;
 
-      this._crud.setProduct('/detailOrder', this.setOrDetailOrderData).then((response: any) => {
-
-
-        Swal.fire({
-          title: "Muy bien!",
-          text: "El pedido fue realizado de forma correcta.",
-          icon: "success"
-        });
-
-      }).catch(() => {
-        this.alert.showToasterError('Error al crear la Orden');
-      });
+      this._crud.setProduct('/detailOrder', this.setOrDetailOrderData);
 
 
 
@@ -193,38 +198,26 @@ export default class DetailCartComponent implements OnInit{
 
 
   }
-  actualizarProducto(): void {
+  getDataProductCart(): void {
 
-    this.dataCart.forEach((product: any) => {
-
-
-      this._crud.readGeneral('/products', 'id', product.id).then((response: any) => {
-        response.subscribe(( res: any) => {
-
-          const dataProduct = res[0].payload.doc.data();
-          this.colectionIDProduct  = res[0].payload.doc.id;
-          this.getDataProduct = dataProduct as Products;
-
-          this.getDataProduct.size =  +this.getDataProduct.size  - +product.cantidad;
-
-          this.alert.showToasterFull('El pedido fue realizado de forma correcta.');
-          this.cartS.removeStorage();
-          this.router.navigate(['/']);
-          location.reload();
-
-          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct).then((response: any) => {
-          }).catch((error: any) => {
-            this.alert.showToasterError('Hubo un error al actualizar el producto');
-          });
+    this.dataCart.forEach((product: any, index: number) => {
 
 
+          this.colectionIDProduct  = product._id;
+          this.getDataProduct.size = product.size - product.cantidad;
 
-        });
-      })
+          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct);
+
+          //subscription.
+
+
 
     });
 
   }
+
+
+
   public openModalLogin(value: number): void {
 
     this.dialog.open(AuthComponent, {
@@ -285,7 +278,9 @@ export default class DetailCartComponent implements OnInit{
       value_prefijo: '',
       description: '',
       id_producto: ''
-    }
+    };
+
+
 
   }
 

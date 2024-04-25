@@ -5,7 +5,7 @@
 
     <div class="container__title">
 
-      <span>Listado de productos</span>
+      <span>Listado de productos: ({{ totalProducts }})</span>
 
     </div>
     <div class="container__button">
@@ -102,4 +102,8 @@
 
 
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons="">
+  </mat-paginator>
 </div>

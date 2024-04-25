@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {CurrencyPipe} from "@angular/common";
 import {
   MatCell,
@@ -7,16 +7,16 @@ import {
   MatFooterRow,
   MatHeaderCell,
   MatHeaderRow, MatRow,
-  MatTable, MatTableModule
+  MatTable, MatTableDataSource, MatTableModule
 } from "@angular/material/table";
 import {CrudService} from "../../services/crud/crud.service";
 import {Router, RouterLink} from "@angular/router";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {filter} from "rxjs";
 import {CATEGORY} from "../../const/category";
 import {Products} from "../../interface/products";
 import {AlertService} from "../../services/alert/alert.service";
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-list-product',
@@ -36,16 +36,20 @@ import {AlertService} from "../../services/alert/alert.service";
     MatIcon,
     MatFabButton,
     RouterLink,
+    MatPaginatorModule
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.scss'
 })
-export default class ListProductComponent implements OnInit{
-
+export default class ListProductComponent implements OnInit {
+  @ViewChild (MatPaginator) paginator!: MatPaginator;
   public tableproduct: any;
   public colectionID: any;
   tableConventionsColumns: string[];
   public selectIndexTable: number | undefined;
+  totalProducts: number = 0;
+  pageSize: number = 10; // Número de elementos por página
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   getCategorys = CATEGORY.data;
   constructor( private crud: CrudService,
@@ -58,12 +62,18 @@ export default class ListProductComponent implements OnInit{
     this._customerTableColumns();
   }
 
+
   listProduct(): void {
 
     this.crud.read('/products').then((response: any) => {
 
       response.subscribe((res: any) => {
-        this.tableproduct = res;
+        this.tableproduct = new MatTableDataSource<any>(res);
+        this.tableproduct.paginator = this.paginator;
+
+        //this.tableproduct = res;
+        this.totalProducts = res.length;
+        console.log(this.tableproduct)
 
       });
 

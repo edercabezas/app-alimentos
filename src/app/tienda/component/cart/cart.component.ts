@@ -84,26 +84,42 @@ export class CartComponent implements OnInit{
 
   addCart(): void {
 
-    if (this.valueForm > this.dataCart.size) {
+    if (this.valueForm > this.dataCart.size - this.cartProductQuantity) {
       this.alert.showToasterWarning('La cantidad no puede ser mayor a la disponible');
       return;
     }
 
+    const existsCartProduct = this._cart.cartProductCount[this.dataCart.id];
+    if (!!existsCartProduct) {
+      this._cart.updateCartQuantity(existsCartProduct.index, +this.valueForm);
+      this.onNoClick();
+      return;
+    }
+
+
+
     this.carData.id = this.dataCart.id;
+    this.carData._id = this.dataCart._id;
     this.carData.img = this.dataCart.img;
     this.carData.nameProduct = this.dataCart.nameProduct;
     this.carData.prefijo = this.dataCart.prefijo;
-    this.carData.price = this.dataCart.price;
-    this.carData.size = this.dataCart.size;
+    this.carData.price = +this.dataCart.price;
+    this.carData.size = +this.dataCart.size;
     this.carData.value_prefijo = this.dataCart.value_prefijo;
     this.carData.code = this.dataCart.code;
     this.carData.category = this.dataCart.category;
-    this.carData.cantidad = this.valueForm;
+    this.carData.cantidad = +this.valueForm;
 
 
-    this._cart.addCart(this.carData)
+    this._cart.addCart(this.carData);
+
+    this.onNoClick();
+
 
   }
+
+
+
 
   setCart(): void {
     this.carData = {
@@ -197,5 +213,12 @@ export class CartComponent implements OnInit{
         item: value
       }
     });
+  }
+
+  get cartProductQuantity(): number {
+
+    return  this._cart.cartProductCount[this.dataCart.id]?.cantidad ?? 0;
+   // this.dataCart.size -= quantityProductCart;
+
   }
 }

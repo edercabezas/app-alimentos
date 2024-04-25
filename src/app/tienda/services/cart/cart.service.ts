@@ -11,12 +11,16 @@ export class CartService {
   currentMessage = this.resulCard.asObservable();
   carritoAnterior: Array<any>;
   addProductoCarrito: Array<any>;
+  cartProductCount: any;
   constructor(private alertS: AlertService) {
 
     this.showProductCart();
     this.carritoAnterior = [];
     this.addProductoCarrito = [];
+    this.cartProductCount = {};
+    this.calculateProduct();
   }
+
   public addCart(data: Cart): void {
     console.log(data)
     let dataCart: any;
@@ -73,6 +77,25 @@ export class CartService {
 
   }
 
+
+  updateCartQuantity(index: number, quantity: number): void {
+      let items: any;
+      const products = localStorage.getItem('alimentos');
+
+
+      if (products) {
+        items = JSON.parse(products);
+      }
+
+      items[index].cantidad  += quantity;
+
+      localStorage.setItem('alimentos', JSON.stringify(items));
+
+    this.showProductCart();
+  }
+
+
+
   public showProductCart(): void {
     let data: any;
 
@@ -80,6 +103,7 @@ export class CartService {
       data = localStorage.getItem('alimentos');
       this.resulCard.next(JSON.parse(data));
     }
+
 
   }
 
@@ -107,6 +131,23 @@ export class CartService {
   public removeStorage(): void {
     localStorage.removeItem('alimentos');
     this.showProductCart();
+
+  }
+
+
+  calculateProduct(): any {
+    this.currentMessage.subscribe((response: any) => {
+      this.cartProductCount = {};
+      if (!response) {
+        return;
+      }
+
+      response.forEach((res: any, index: number) => {
+
+        this.cartProductCount[res.id] = {cantidad:  res.cantidad, index };
+
+      });
+    });
 
   }
 

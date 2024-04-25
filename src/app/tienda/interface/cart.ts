@@ -9,4 +9,5 @@ export interface Cart {
   id: string;
   code: string;
   cantidad: number;
+  _id?: string;
 }

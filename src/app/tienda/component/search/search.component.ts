@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit{
 
   getProducts(): void {
     this.products = [];
-    this._crud.read('/products').then((response: any) => {
+    this._crud.readSearch('/products').then((response: any) => {
 
       response.subscribe((res: any) => {
         this.products = res;

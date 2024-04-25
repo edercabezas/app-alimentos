@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CurrencyPipe} from "@angular/common";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {
@@ -8,7 +8,7 @@ import {
   MatHeaderCell,
   MatHeaderRow,
   MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableModule
+  MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule
 } from "@angular/material/table";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterLink} from "@angular/router";
@@ -17,31 +17,33 @@ import {CrudService} from "../../services/crud/crud.service";
 import {AlertService} from "../../services/alert/alert.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserComponent} from "../../component/create-user/create-user.component";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-user',
   standalone: true,
-  imports: [
-    MatTable,
-    MatColumnDef,
-    MatHeaderCell,
-    MatCell,
-    MatFooterCell,
-    CurrencyPipe,
-    MatHeaderRow,
-    MatFooterRow,
-    MatRow,
-    MatTableModule,
-    MatButton,
-    MatIcon,
-    MatFabButton,
-    RouterLink,
-  ],
+    imports: [
+        MatTable,
+        MatColumnDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        CurrencyPipe,
+        MatHeaderRow,
+        MatFooterRow,
+        MatRow,
+        MatTableModule,
+        MatButton,
+        MatIcon,
+        MatFabButton,
+        RouterLink,
+        MatPaginator,
+    ],
   templateUrl: './list-user.component.html',
   styleUrl: './list-user.component.scss'
 })
 export default class ListUserComponent implements OnInit{
-
+  @ViewChild (MatPaginator) paginator!: MatPaginator;
 
   public tableproduct: any;
   public colectionID: any;
@@ -65,7 +67,9 @@ export default class ListUserComponent implements OnInit{
     this.crud.read('/users').then((response: any) => {
 
       response.subscribe((res: any) => {
-        this.tableproduct = res;
+        //this.tableproduct = res;
+        this.tableproduct = new MatTableDataSource<any>(res);
+        this.tableproduct.paginator = this.paginator;
 
       });
 

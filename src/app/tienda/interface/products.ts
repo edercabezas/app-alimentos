@@ -10,5 +10,7 @@ export interface Products {
   id: string;
   code: string;
   status: boolean;
+  colection: string;
+  _id?: string;
 
 }

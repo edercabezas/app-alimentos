@@ -84,13 +84,13 @@
           <mat-card>
 
             <div class="container__totalCompra">
-              <span class="title__pagar">Total Compra: </span> <span class="value__pagar">{{ valorTotal | currency }}</span>
+              <span class="title__pagar">Total valor de laCompra: </span> <span class="value__pagar">{{ valorTotal | currency }}</span>
             </div>
           </mat-card>
 
 
 
-          <mat-card *ngIf="userRegister && colectionID ; else notData">
+          <mat-card *ngIf="userRegister && colectionID ; else notData" class="information__comprador">
               <h2>Informacion de entrega del pedido</h2>
             <p>
               <span>Nombre: {{ dataPay.nombre }}</span>
@@ -121,7 +121,7 @@
             </p>
 
 
-            <h2>para actualizar tú información <span routerLink="/my-user">Ingresa aqui</span></h2>
+            <h2>para actualizar tú información <span routerLink="/my-user">Ingresa aquí</span></h2>
           </mat-card>
 
 
@@ -138,13 +138,17 @@
           </ng-template>
 
           <mat-card *ngIf="!userRegister">
-            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="openModalLogin( 1 )" >
+            <button mat-flat-button color="primary" class="button__favorite button__finis__pay"
+                    (click)="openModalLogin( 1 )" >
               <span>Iniciar sesión</span>
             </button>
           </mat-card>
 
           <mat-card *ngIf="userRegister">
-            <button mat-flat-button color="primary" class="button__favorite button__finis__pay" (click)="setPay()" >
+            <button mat-flat-button color="primary"
+                    class="button__favorite button__finis__pay"
+                    (click)="setPay()"
+            [disabled]="dataCart && dataCart.length === 0">
               <span>Realizar Compra</span>
             </button>
           </mat-card>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,19 @@ export class CrudService {
   }
 
   async read(table: string) {
+    return this.db.collection(`${table}`).snapshotChanges().pipe(
+      map(items => {
+        return items.map(item => {
+          const _id = item.payload.doc.id;
+          const data: any = item.payload.doc.data();
+          return { _id, ...data };
+        })
+      })
+    );
+
+  }
+
+  async readSearch(table: string) {
     return this.db.collection(`${table}`).valueChanges();
 
   }
@@ -25,7 +38,6 @@ export class CrudService {
   }
 
   async readGeneral(tabla: string, campo: any, value: number) {
-    console.log(tabla, campo, value)
     return this.db.collection(`${tabla}`, ref => ref
       .where(campo, '==', value)
     ).snapshotChanges();
@@ -37,19 +49,6 @@ export class CrudService {
   }
 
 
-  async setOrder(table: string, order: any): Promise<any> {
-    return this.db.collection(`${table}`).add(order);
-  }
-
-  async setOrderNew(table: string, order: any): Promise<any> {
-    return this.db.collection(`${table}`).add(order);
-  }
-
-
-  async setDetailOrder(table: string, detail: any): Promise<any> {
-    return this.db.collection(`${table}`).add(detail);
-  }
-
 
   readDetailOrder(tabla: string, campo: any, value: number): Observable<any[]> {
 
@@ -58,9 +57,6 @@ export class CrudService {
     ).valueChanges();
   }
 
-  async setContactUs(table: string, contactus: any): Promise<any> {
-    return this.db.collection(`${table}`).add(contactus);
-  }
 
 
   async deleteColection(table: string, colectionID: any): Promise<any> {
