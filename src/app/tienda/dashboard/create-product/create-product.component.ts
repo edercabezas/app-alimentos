@@ -160,6 +160,7 @@ export default class CreateProductComponent implements OnInit {
     let getHours = new Date().getHours().toString();
     let getMinutes = new Date().getMinutes().toString();
     const getFullYear =new Date().getFullYear().toString();
+    const getSegundos =new Date().getMilliseconds();
     let getMonth = constGetMonth.toString()
 
     if (getDay.length === 1) {
@@ -182,7 +183,7 @@ export default class CreateProductComponent implements OnInit {
         return this.codeProduct;
     }
 
-    const dataFinish = `${getDay}${getMonth}${getFullYear}${getHours}${getMinutes}`;
+    const dataFinish = `${getDay}${getMonth}${getFullYear}${getHours}${getMinutes}${getSegundos}`;
     this.codeProduct = dataFinish.toString();
 
     return dataFinish.toString();

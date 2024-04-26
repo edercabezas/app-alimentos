@@ -14,19 +14,27 @@
 
     <div class="container__row">
       <div class="row">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-3">
           <div class="container__order">
             <p>Numero de Orden</p>
             <span> {{ getOrder.id }} </span>
           </div>
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-3">
+          <div class="container__fecha">
+            <p>Valor del pedido</p>
+            <span> {{ getOrder.valueTotal | currency }} </span>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-3">
           <div class="container__fecha">
             <p>Fecha de creacion del pedido</p>
             <span> {{ getOrder.date_order }} </span>
           </div>
         </div>
-        <div class="col-12 col-lg-4">
+
+        <div class="col-12 col-lg-3">
           <div class="container__email">
             <mat-form-field>
               <mat-label>Estado del pedido</mat-label>

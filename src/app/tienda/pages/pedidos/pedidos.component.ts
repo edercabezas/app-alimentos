@@ -21,6 +21,7 @@ export default class PedidosComponent implements OnInit{
   dataPay!: DataPayUsers;
   getOrderList: any;
   detailOrder: any;
+  valuePedido: number = 0;
   constructor(
     private _storage: SesionService,
     private _crud: CrudService) {
@@ -66,10 +67,13 @@ export default class PedidosComponent implements OnInit{
 
   }
 
- async getDetailOrder(id_order: any): Promise<any> {
+ async getDetailOrder(item: any): Promise<any> {
+
+    console.log(item)
+    this.valuePedido =  item.valueTotal;
 
    this.detailOrder = [];
-    const data = this._crud.readDetailOrder('/detailOrder', 'order_id',  id_order);
+    const data = this._crud.readDetailOrder('/detailOrder', 'order_id',  item.id);
 
     data.subscribe(async ( res: any) => {
       console.log(res)

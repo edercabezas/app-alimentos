@@ -5,4 +5,5 @@ export interface Order {
   user_id: number;
   id_data_user: string;
   status: string;
+  valueTotal: number;
 }

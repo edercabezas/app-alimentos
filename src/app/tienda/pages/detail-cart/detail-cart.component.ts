@@ -150,6 +150,7 @@ export default class DetailCartComponent implements OnInit {
     this.setOrderData.id_data_user = this.dataPay.id;
     this.setOrderData.date_order = dateOrder.toISOString();
     this.setOrderData.user_id = this.userRegister?.id;
+    this.setOrderData.valueTotal = this.valorTotal;
 
     this._crud.setProduct('/order', this.setOrderData).then((response: any) => {
 
@@ -253,7 +254,8 @@ export default class DetailCartComponent implements OnInit {
       user_id: 0,
       date_order: '',
       id_data_user: '',
-      status: 'PENDIENTE'
+      status: 'PENDIENTE',
+      valueTotal: 0
     };
     this.setOrDetailOrderData = {
       img: '',

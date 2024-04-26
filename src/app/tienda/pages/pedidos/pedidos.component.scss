@@ -94,3 +94,14 @@ mat-card {
   }
 
 }
+
+
+.container__value__pedido {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-bottom: 1px solid orange;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
