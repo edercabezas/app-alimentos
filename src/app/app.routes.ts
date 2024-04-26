@@ -35,8 +35,25 @@ export const routes: Routes = [
   },
 
   {
+    path: 'pedidos',
+    loadComponent: () => import('./tienda/pages/pedidos/pedidos.component')
+  },
+
+  {
     path: 'products',
     loadComponent: () => import('./tienda/dashboard/list-product/list-product.component'),
+    canActivate: [GuardsGuard]
+  },
+
+  {
+    path: 'list-order',
+    loadComponent: () => import('./tienda/dashboard/list-pedidos/list-pedidos.component'),
+    canActivate: [GuardsGuard]
+  },
+
+  {
+    path: 'edit-order/:id/:coletion',
+    loadComponent: () => import('./tienda/dashboard/edit-order/edit-order.component'),
     canActivate: [GuardsGuard]
   },
 

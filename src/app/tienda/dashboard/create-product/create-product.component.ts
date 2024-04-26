@@ -63,6 +63,9 @@ export default class CreateProductComponent implements OnInit {
   }
 
 
+
+
+
   async _getProduct(id: any): Promise<any>  {
     this.crud.readGeneral('/products', 'id', id).then( ( response: any) => {
       response.subscribe(( res: any) => {
@@ -72,8 +75,6 @@ export default class CreateProductComponent implements OnInit {
 
       });
 
-    }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -90,8 +91,6 @@ export default class CreateProductComponent implements OnInit {
       }
 
 
-    }).catch((error: any) => {
-      console.log('Error al guardar las credenciales', error);
     });
 
   }
@@ -112,7 +111,6 @@ export default class CreateProductComponent implements OnInit {
     const ref = this.imgFir.ref(this.routerIMG);
     const task = this.imgFir.upload(this.routerIMG, imgProductOne);
     const percentage = task.percentageChanges();
-    console.log(percentage);
 
     task.snapshotChanges().subscribe(() => {
       this.routerFinish = ref.getDownloadURL();

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {CartService} from "../../services/cart/cart.service";
 import {AlertService} from "../../services/alert/alert.service";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
@@ -34,7 +34,8 @@ import {Products} from "../../interface/products";
     MatInput,
     MatLabel,
     NgIf,
-    RouterLink
+    RouterLink,
+    JsonPipe
   ],
   templateUrl: './detail-cart.component.html',
   styleUrl: './detail-cart.component.scss'
@@ -122,11 +123,6 @@ export default class DetailCartComponent implements OnInit{
 
         this.crearOrden();
 
-        Swal.fire({
-          title: "Muy bien!",
-          text: "El pedido fue realizado de forma correcta.",
-          icon: "success"
-        });
 
 
         //this.cartS.removeStorage();
@@ -206,9 +202,17 @@ export default class DetailCartComponent implements OnInit{
           this.colectionIDProduct  = product._id;
           this.getDataProduct.size = product.size - product.cantidad;
 
-          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct);
+          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct).then(() => {
 
-          //subscription.
+            Swal.fire({
+              title: "Muy bien!",
+              text: "El pedido fue realizado de forma correcta.",
+              icon: "success"
+            });
+          })
+
+
+
 
 
 
@@ -264,7 +268,8 @@ export default class DetailCartComponent implements OnInit{
       id: 0,
       user_id: 0,
       date_order: '',
-      id_data_user: ''
+      id_data_user: '',
+      status: 'PENDIENTE'
     };
     this.setOrDetailOrderData = {
       img: '',

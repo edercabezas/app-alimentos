@@ -1,1 +1,137 @@
-<p>pedidos works!</p>
+<div class="container__big">
+
+
+  <div class="container">
+
+    <div class="contaiber__row" *ngIf="getOrderList && getOrderList.length > 0; else notOrder">
+
+      <div class="container__title">
+        <h2>Información de sus pedidos haga click en cualquiera de la lista</h2>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-lg-5">
+          <div class="container__pre_result">
+          <mat-card *ngFor="let pedidos of getOrderList" (click)="getDetailOrder(pedidos.id)">
+
+            <div class="container__card">
+              <div class="number__pedido">
+                <span>Numero de pedido: {{ pedidos.id}}</span>
+              </div>
+              <div class="number__pedido">
+                <span>Estado de su pedido: Pendiente</span>
+              </div>
+              <div class="number__pedido">
+                <span>Fecha de solicitud del pedido: {{ pedidos.date_order | date}}</span>
+              </div>
+            </div>
+
+          </mat-card>
+          </div>
+
+
+
+<!--            <mat-card *ngIf="userRegister && colectionID" class="information__comprador">-->
+<!--              <h2>Informacion de entrega del pedido</h2>-->
+<!--              <p>-->
+<!--                <span>Nombre: {{ dataPay.nombre }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Apellido: {{ dataPay.apellido }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Telefono: {{ dataPay.telefono }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Ciudad: {{ dataPay.ciudad }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Dirección: {{ dataPay.direccion }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Barrio: {{ dataPay.barrio }}</span>-->
+<!--              </p>-->
+
+<!--              <p>-->
+<!--                <span>Observacion: {{ dataPay.observation }} </span>-->
+<!--              </p>-->
+
+
+<!--              <h2>para actualizar tú información <span routerLink="/my-user">Ingresa aquí</span></h2>-->
+<!--            </mat-card>-->
+
+
+
+        </div>
+        <div class="col-12 col-lg-7">
+        <div class="container_result" *ngIf="detailOrder && detailOrder.length > 0">
+
+          <mat-card *ngFor="let item of detailOrder">
+
+            <div class="container__card__item__product">
+
+              <div class="container__img">
+                <div class="img">
+                  <img [src]="item.img" alt="">
+                </div>
+              </div>
+              <div class="container__name">
+                <div class="container__title">
+                  <span> {{ item.nameProduct }} </span>
+                </div>
+              </div>
+              <div class="container__value">
+                <div class="container__price">
+                  <span> {{ item.price | currency }} </span>
+                </div>
+                <div class="container__size">
+                  <span> {{ item.cantidad }} </span>
+                </div>
+                <div class="container__total">
+                  <span> {{ item.price * item.cantidad  | currency}} </span>
+                </div>
+              </div>
+              <div class="container__prefijo">
+
+                <div class="container__prefijo">
+                  <p>
+                    <span> {{ item.value_prefijo }} - {{ item.prefijo }}</span>
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+
+          </mat-card>
+
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <ng-template #notOrder>
+
+
+      <div class="container___pricipal">
+
+        <div class="container__padre">
+
+          <img src="assets/img/products/not__products.jpg" alt="">
+
+          <p>No tienes Pedidos agregados, agrega los productos al carrito y realiza la compra y has el seguimiento en esta vista</p>
+
+        </div>
+
+      </div>
+    </ng-template>
+  </div>
+
+</div>

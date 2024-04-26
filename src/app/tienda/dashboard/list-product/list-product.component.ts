@@ -73,13 +73,10 @@ export default class ListProductComponent implements OnInit {
 
         //this.tableproduct = res;
         this.totalProducts = res.length;
-        console.log(this.tableproduct)
 
       });
 
 
-    }).catch((error: any) => {
-      console.log(error);
     })
   }
 
@@ -112,8 +109,6 @@ export default class ListProductComponent implements OnInit {
 
       });
 
-    }).catch((error: any) => {
-      console.log(error);
     });
   }
 

@@ -130,7 +130,7 @@
             <mat-card *ngIf="userRegister && !colectionID" >
                 <span>Por favor actualiza tus datos de entrega</span>
                 <button mat-flat-button color="primary" class="button__favorite button__finis__pay" routerLink="/my-user" >
-                  <span>Actualizar datos</span>
+                  <span>Ingresa aquí</span>
                 </button>
 
             </mat-card>
@@ -144,7 +144,7 @@
             </button>
           </mat-card>
 
-          <mat-card *ngIf="userRegister">
+          <mat-card *ngIf="userRegister && colectionID">
             <button mat-flat-button color="primary"
                     class="button__favorite button__finis__pay"
                     (click)="setPay()"

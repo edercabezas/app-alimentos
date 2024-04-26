@@ -56,13 +56,16 @@ export class HeaderComponent implements OnInit{
   }
 
 
-  public openModalLogin(value: number): void {
-
+  redirectUSer(url: string): void {
     if ( this.userRegister) {
-      this.router.navigate(['/favorite']);
+      this.router.navigate([`/${url}`]);
       return;
     }
 
+    this.openModalLogin( 1 );
+  }
+
+  public openModalLogin(value: number): void {
 
     this.dialog.open(AuthComponent, {
       width: '500px',
@@ -100,7 +103,6 @@ export class HeaderComponent implements OnInit{
     this.showScroll = !this.showScroll;
     const btnNav: any  = document.getElementById('btn-nav');
     btnNav.click();
-    console.log(category)
   }
 
 

@@ -111,10 +111,6 @@ export default class UsersComponent implements  OnInit{
       if (response) {
           this.alert.showToasterFull('La información fue guardada exitosamente')
       }
-
-      console.log(console);
-    }).catch(() => {
-
     });
   }
 

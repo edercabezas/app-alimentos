@@ -1,0 +1,93 @@
+<div class="contaiber_big">
+  <div class="container">
+
+    <div class="container__buutton__back">
+
+      <button mat-fab color="primary" (click)="backButton()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+    </div>
+
+    <div class="container__title">
+      <span> Puedes confirmar el pedido cancelarlo etc.</span>
+    </div>
+
+    <div class="container__row">
+      <div class="row">
+        <div class="col-12 col-lg-4">
+          <div class="container__order">
+            <p>Numero de Orden</p>
+            <span> {{ getOrder.id }} </span>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="container__fecha">
+            <p>Fecha de creacion del pedido</p>
+            <span> {{ getOrder.date_order }} </span>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="container__email">
+            <mat-form-field>
+              <mat-label>Estado del pedido</mat-label>
+              <mat-select  [(ngModel)]="getOrder.status" (selectionChange)="updateOrder()">
+                <mat-option [value]="'PENDIENTE'">PENDIENTE</mat-option>
+                <mat-option [value]="'CONFIRMADO'">CONFIRMADO</mat-option>
+                <mat-option [value]="'CANCELADO'">CANCELADO</mat-option>
+                <mat-option [value]="'CANCELADO'">RECHAZADO</mat-option>
+                <mat-option [value]="'DESPACHADO'">DESPACHADO</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container__detail">
+
+       <div class="container__mat_card" *ngIf="setDetail">
+         <mat-card *ngFor="let item of setDetail">
+           <div class="container__card__item__product">
+
+             <div class="container__img">
+               <div class="img">
+                 <img [src]="item.img" alt="">
+               </div>
+             </div>
+             <div class="container__name">
+               <div class="container__title">
+                 <span> {{ item.nameProduct }} </span>
+               </div>
+             </div>
+             <div class="container__value">
+               <div class="container__price">
+                 <span> {{ item.price | currency }} </span>
+               </div>
+               <div class="container__size">
+                 <span> {{ item.cantidad }} </span>
+               </div>
+               <div class="container__total">
+                 <span> {{ item.price * item.cantidad  | currency}} </span>
+               </div>
+             </div>
+             <div class="container__prefijo">
+
+               <div class="container__prefijo">
+                 <p>
+                   <span> {{ item.value_prefijo }} - {{ item.prefijo }}</span>
+                 </p>
+               </div>
+             </div>
+
+
+           </div>
+
+         </mat-card>
+       </div>
+
+
+    </div>
+  </div>
+</div>

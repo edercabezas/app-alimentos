@@ -30,16 +30,16 @@
 
   <div class="container-options">
 
-<!--    <button class=""  type="button" mat-button (click)="openModalLogin(1)">-->
-<!--      <div class="container-icons">-->
-<!--        <mat-icon>local_shipping</mat-icon>-->
-<!--      </div>-->
-<!--      <div class="container-text">-->
-<!--        <span>Pedidos</span>-->
-<!--      </div>-->
-<!--    </button>-->
+    <button class="color__button__header"  type="button" mat-button (click)="redirectUSer('pedidos')">
+      <div class="container-icons">
+        <mat-icon>local_shipping</mat-icon>
+      </div>
+      <div class="container-text">
+        <span class="color__button__header">Pedidos</span>
+      </div>
+    </button>
 
-    <button class="color__button__header"  type="button"  mat-button (click)="openModalLogin(1)">
+    <button class="color__button__header"  type="button"  mat-button (click)="redirectUSer('favorite')">
 
       <div class="container-icons ">
         <mat-icon>favorite</mat-icon>
@@ -101,6 +101,7 @@
   <div *ngIf="userRegister && userRegister.profile === 'Admin'">
     <button mat-menu-item routerLink="/products">Productos</button>
     <button mat-menu-item routerLink="/users">Usuarios</button>
+    <button mat-menu-item routerLink="/list-order">Pedidos</button>
   </div>
 
   <div *ngIf="userRegister && userRegister.profile === 'Customer'">

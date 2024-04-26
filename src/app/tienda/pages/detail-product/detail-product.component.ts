@@ -75,7 +75,6 @@ export default class DetailProductComponent implements OnInit{
       });
 
     }).catch((error: any) => {
-      console.log(error);
     }).finally(() => this.reload = false);
   }
 
@@ -105,8 +104,6 @@ export default class DetailProductComponent implements OnInit{
 
   public setFavorite(data: any): void {
 
-    console.log(data)
-
     if(!this.userRegister) {
       this.openModalLogin(1);
       return;
@@ -126,9 +123,6 @@ export default class DetailProductComponent implements OnInit{
     this.setFavoriteData.description = data.description;
     this.setFavoriteData.value_prefijo = data.value_prefijo;
 
-    console.log(this.setFavoriteData)
-
-
     this.crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
       if (response) {
@@ -136,9 +130,6 @@ export default class DetailProductComponent implements OnInit{
 
       }
 
-
-    }).catch((error: any) => {
-      console.log('Error al agregar a tus favoritos', error);
     });
 
   }

@@ -1,48 +1,48 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CurrencyPipe} from "@angular/common";
-import {MatButton, MatFabButton} from "@angular/material/button";
+import {MatPaginator} from "@angular/material/paginator";
+import {CATEGORY} from "../../const/category";
+import {CrudService} from "../../services/crud/crud.service";
+import {Router, RouterLink} from "@angular/router";
+import {AlertService} from "../../services/alert/alert.service";
+import {MatDialog} from "@angular/material/dialog";
 import {
   MatCell,
   MatCellDef,
   MatColumnDef, MatFooterCell, MatFooterRow,
   MatHeaderCell,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable,
+  MatTableDataSource, MatTableModule
 } from "@angular/material/table";
-import {MatIcon} from "@angular/material/icon";
-import {Router, RouterLink} from "@angular/router";
-import {CATEGORY} from "../../const/category";
-import {CrudService} from "../../services/crud/crud.service";
-import {AlertService} from "../../services/alert/alert.service";
-import {MatDialog} from "@angular/material/dialog";
 import {CreateUserComponent} from "../../component/create-user/create-user.component";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatButton, MatFabButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {CurrencyPipe} from "@angular/common";
 
 @Component({
-  selector: 'app-list-user',
+  selector: 'app-list-pedidos',
   standalone: true,
-    imports: [
-        MatTable,
-        MatColumnDef,
-        MatHeaderCell,
-        MatCell,
-        MatFooterCell,
-        CurrencyPipe,
-        MatHeaderRow,
-        MatFooterRow,
-        MatRow,
-        MatTableModule,
-        MatButton,
-        MatIcon,
-        MatFabButton,
-        RouterLink,
-        MatPaginator,
-    ],
-  templateUrl: './list-user.component.html',
-  styleUrl: './list-user.component.scss'
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatFooterCell,
+    CurrencyPipe,
+    MatHeaderRow,
+    MatFooterRow,
+    MatRow,
+    MatTableModule,
+    MatButton,
+    MatIcon,
+    MatFabButton,
+    RouterLink,
+    MatPaginator,
+  ],
+  templateUrl: './list-pedidos.component.html',
+  styleUrl: './list-pedidos.component.scss'
 })
-export default class ListUserComponent implements OnInit{
+export default class ListPedidosComponent implements  OnInit{
+
   @ViewChild (MatPaginator) paginator!: MatPaginator;
 
   public tableproduct: any;
@@ -64,7 +64,7 @@ export default class ListUserComponent implements OnInit{
 
   listProduct(): void {
 
-    this.crud.read('/users').then((response: any) => {
+    this.crud.read('/order').then((response: any) => {
 
       response.subscribe((res: any) => {
         //this.tableproduct = res;
@@ -79,29 +79,21 @@ export default class ListUserComponent implements OnInit{
 
   private _customerTableColumns(): void {
     this.tableConventionsColumns = [
-      'img',
-      'userName',
-      'email',
-      'profile',
+      'id',
+      'status',
+      'date_order',
       'accion',
 
     ];
   }
 
 
-  public openModalLogin(type: number, data: any): void {
+showEditOrder(item: any): void {
 
-    this.dialog.open(CreateUserComponent, {
-      width: '700px',
-      height: '350px',
-      data: {
-        item: {
-          value: type,
-          item: data
-        }
-      }
-    });
-  }
+    console.log(item)
+  this.router.navigate([`/edit-order/${item.id}/${item._id}`])
+
+}
 
 
 

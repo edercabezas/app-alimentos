@@ -88,7 +88,6 @@ export default class HomeComponent implements OnInit{
 
       response.subscribe((res: any) => {
         this.products = res;
-        console.log(res)
         this.statusProduct = false;
 
 
@@ -132,8 +131,6 @@ export default class HomeComponent implements OnInit{
 
 public setFavorite(data: any): void {
 
-  console.log(data)
-
     if(!this.userRegister) {
       this.openModalLogin(1);
       return;
@@ -153,8 +150,6 @@ public setFavorite(data: any): void {
     this.setFavoriteData.description = data.description;
     this.setFavoriteData.value_prefijo = data.value_prefijo;
 
-    console.log(this.setFavoriteData)
-
 
   this._crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
@@ -162,12 +157,7 @@ public setFavorite(data: any): void {
       this.alert.showToasterFull('El producto se agrego a tus favoritos');
 
     }
-
-
-  }).catch((error: any) => {
-    console.log('Error al agregar a tus favoritos', error);
-  });
-
+  })
 }
 
 private _setFavorites(): void {

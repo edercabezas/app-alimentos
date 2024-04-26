@@ -70,12 +70,9 @@ export class CartComponent implements OnInit{
         this.alert.showToasterUpdate('Para agregar el producto al carrito la cantidad minima debe de ser 1');
       }
     }
-
-    console.log(status)
   }
 
   setValueInput(): void {
-    console.log( this.valueForm)
     if (this.valueForm === 0 || this.valueForm < 0) {
       this.valueForm = 1;
     }
@@ -147,8 +144,6 @@ export class CartComponent implements OnInit{
 
   public setFavorite(data: any): void {
 
-    console.log(data)
-
     if(!this.userRegister) {
       this.openModalLogin(1);
       return;
@@ -168,8 +163,6 @@ export class CartComponent implements OnInit{
     this.setFavoriteData.description = data.description;
     this.setFavoriteData.value_prefijo = data.value_prefijo;
 
-    console.log(this.setFavoriteData)
-
 
     this.crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
@@ -179,8 +172,6 @@ export class CartComponent implements OnInit{
       }
 
 
-    }).catch((error: any) => {
-      console.log('Error al agregar a tus favoritos', error);
     });
 
   }
