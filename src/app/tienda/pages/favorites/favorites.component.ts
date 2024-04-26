@@ -8,9 +8,7 @@ import {CartComponent} from "../../component/cart/cart.component";
 import {SesionService} from "../../services/sesion-global/sesion.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AlertService} from "../../services/alert/alert.service";
-import {DataPayUsers} from "../../interface/data-pay";
 import {CrudService} from "../../services/crud/crud.service";
-import {Favorite} from "../../interface/favorite";
 
 @Component({
   selector: 'app-favorites',
@@ -31,10 +29,10 @@ export default class FavoritesComponent implements OnInit{
   products: any;
   userRegister: any;
   colectionID: any;
-  constructor( private router: Router,
-               private storage: SesionService,
+  constructor( private _router: Router,
+               private _storage: SesionService,
                public dialog: MatDialog,
-               private alert: AlertService,
+               private _alert: AlertService,
                private _crud: CrudService) {
     this.products = [];
 
@@ -45,7 +43,7 @@ export default class FavoritesComponent implements OnInit{
   }
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe((response: any) => {
+    this._storage.currentMessage.subscribe((response: any) => {
       this.userRegister  = response;
       this.getDataUSerPay();
 
@@ -60,34 +58,26 @@ export default class FavoritesComponent implements OnInit{
       height: '500px',
       data: data
     });
-
   }
 
   deleteregister(item: any): void {
-
-
     this._crud.readGeneral('/favorite', 'id_favorite', item.id_favorite).then( ( response: any) => {
       response.subscribe(( res: any) => {
         this.colectionID  = res[0]?.payload.doc.id;
 
         this._crud.deleteColection('/favorite', this.colectionID ).then((response: any) => {
-          this.alert.showToasterFull('El registro se quito del listado de Favoritos');
+          this._alert.showToasterFull('El registro se quito del listado de Favoritos');
 
-        })
-
-
+        });
       });
-
     })
 
 
   }
 
   redirectDetail(item: any): void {
-
     const url = item.nameProduct.toLowerCase().replaceAll(" ", '-').replaceAll(",", '');
-
-    this.router.navigate([`/detail-product/${item.id}/${url}`]);
+    this._router.navigate([`/detail-product/${item.id}/${url}`]);
 
   }
 

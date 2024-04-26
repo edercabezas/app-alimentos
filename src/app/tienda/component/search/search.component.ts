@@ -26,19 +26,15 @@ export class SearchComponent implements OnInit{
   statusProduct: boolean = true;
   dataBuscador: any;
   recorerBusqueda: any[];
-  ocultar: any;
   producto: any;
-  nameProducto: any;
   mostrarBuscador: boolean = false;
   url: any;
-  bolsa = false;
   mostrarResultados: boolean;
   dominio: any;
   constructor(
               private _crud: CrudService,
-              private activatedRoute: ActivatedRoute,
               public dialog: MatDialog,
-              private router: Router) {
+              private _router: Router) {
     this.mostrarResultados =  false;
     this.dominio = '';
     this.products = [];
@@ -107,7 +103,7 @@ export class SearchComponent implements OnInit{
     this.mostrarBuscador = false;
 
     const url = item.nameProduct.toLowerCase().replaceAll(" ", '-').replaceAll(",", '');
-    this.router.navigate([`/detail-product/${item.id}/${url}`]);
+    this._router.navigate([`/detail-product/${item.id}/${url}`]);
     const data: any  = document.getElementById('validationDefaultUsername');
     data.blur();
     this.mostrarResultados = false

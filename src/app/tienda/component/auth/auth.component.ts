@@ -42,10 +42,10 @@ export class AuthComponent implements OnInit{
 
   constructor(public dialogRef: MatDialogRef<AuthComponent>,
               @Inject(MAT_DIALOG_DATA) public dataCart: any,
-              private __auth: AuthService,
-              private alert: AlertService,
-              private router: Router,
-              private storage: SesionService) {
+              private _auth: AuthService,
+              private _alert: AlertService,
+              private _router: Router,
+              private _storage: SesionService) {
     this.typeForm = this.dataCart.item;
 
     console.log(this.dataCart.item)
@@ -72,11 +72,11 @@ export class AuthComponent implements OnInit{
 
   public login(): void {
     this.statusButton =  true;
-    this.__auth.login(this.loginUser.email, this.loginUser.password).then((response: any) => {
+    this._auth.login(this.loginUser.email, this.loginUser.password).then((response: any) => {
 
       if (response) {
         this.userCode = response.user.uid;
-        this.__auth.redUser('/users', this.userCode).then((res: any) => {
+        this._auth.redUser('/users', this.userCode).then((res: any) => {
 
           res.subscribe((res2: any) => {
             res2.forEach(async ( value: any) => {
@@ -85,14 +85,14 @@ export class AuthComponent implements OnInit{
 
               localStorage.setItem('authStore', JSON.stringify(this.userRegister));
               this.statusButton = false;
-              this.storage.changeMessage();
+              this._storage.changeMessage();
 
               if (this.userRegister.profile === 'Customer') {
                 this.onNoClick();
 
               } else {
                 this.onNoClick();
-                this.router.navigateByUrl('/products');
+                this._router.navigateByUrl('/products');
               }
             });
           });
@@ -108,24 +108,24 @@ export class AuthComponent implements OnInit{
     }).catch((error: any) => {
       this.statusButton = false
       console.log('error', error)
-      this.alert.showToasterError('Hubo un Error, validar que los datos ingresados sean correctos');
+      this._alert.showToasterError('Hubo un Error, validar que los datos ingresados sean correctos');
     }).finally(() => this.statusButton = false);
   }
 
   public createUser(): void {
     this.statusButton = true
     this.userRegister.id = new Date().getTime() + new Date().getUTCMilliseconds();
-    this.__auth.registerUSerFirebase(this.userRegister).then((response: any) => {
+    this._auth.registerUSerFirebase(this.userRegister).then((response: any) => {
 
       if (response) {
         this.userRegister.code = response.user.uid;
 
-        this.__auth.setUser('/users', this.userRegister).then((response: any) => {
+        this._auth.setUser('/users', this.userRegister).then((response: any) => {
           if (response) {
             this.statusButton = false
             this.setAuthUser();
             this._setCreateUSer();
-            this.alert.showToasterFull('El Usuario se creo exitosamente');
+            this._alert.showToasterFull('El Usuario se creo exitosamente');
 
 
           }
@@ -138,7 +138,7 @@ export class AuthComponent implements OnInit{
 
 
     }).catch((error: any) => {
-      this.alert.showToasterError('El correo ingresado ya existe o no es Valido, por favor validar nuevamente');
+      this._alert.showToasterError('El correo ingresado ya existe o no es Valido, por favor validar nuevamente');
       this.statusButton = false
     }).finally(() => this.statusButton = false);
 

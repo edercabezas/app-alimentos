@@ -3,12 +3,10 @@ import {CurrencyPipe} from "@angular/common";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {
   MatCell,
-  MatCellDef,
   MatColumnDef, MatFooterCell, MatFooterRow,
   MatHeaderCell,
   MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule
+  MatRow, MatTable, MatTableDataSource, MatTableModule
 } from "@angular/material/table";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterLink} from "@angular/router";
@@ -51,9 +49,8 @@ export default class ListUserComponent implements OnInit{
   public selectIndexTable: number | undefined;
 
   getCategorys = CATEGORY.data;
-  constructor( private crud: CrudService,
-               private router: Router,
-               private alert: AlertService,
+  constructor( private _crud: CrudService,
+               private _alert: AlertService,
                public dialog: MatDialog,) {
     this.tableConventionsColumns = [];
   }
@@ -64,7 +61,7 @@ export default class ListUserComponent implements OnInit{
 
   listProduct(): void {
 
-    this.crud.read('/users').then((response: any) => {
+    this._crud.read('/users').then((response: any) => {
 
       response.subscribe((res: any) => {
         //this.tableproduct = res;
@@ -88,7 +85,6 @@ export default class ListUserComponent implements OnInit{
     ];
   }
 
-
   public openModalLogin(type: number, data: any): void {
 
     this.dialog.open(CreateUserComponent, {
@@ -103,16 +99,13 @@ export default class ListUserComponent implements OnInit{
     });
   }
 
-
-
-
   async _getProduct(id: any): Promise<any>  {
-    this.crud.readGeneral('/products', 'id', id).then( ( response: any) => {
+    this._crud.readGeneral('/products', 'id', id).then( ( response: any) => {
       response.subscribe(( res: any) => {
         this.colectionID  = res[0]?.payload.doc.id;
 
-        this.crud.deleteColection('/products', this.colectionID ).then((response: any) => {
-          this.alert.showToasterFull('El producto fue eliminado exitosamente');
+        this._crud.deleteColection('/products', this.colectionID ).then((response: any) => {
+          this._alert.showToasterFull('El producto fue eliminado exitosamente');
 
         })
 
@@ -120,20 +113,6 @@ export default class ListUserComponent implements OnInit{
       });
 
     });
-  }
-
-
-  public selectRow(index: any): void {
-    this.router.navigate([`edit-product/${index.id}`])
-  }
-
-  public async deleteRow(index: any): Promise<any> {
-    this._getProduct(index.id);
-  }
-
-  filtreTypeProduct(category: number): string {
-    const data = this.getCategorys.filter((item: any) => item.id === category);
-    return data[0].name;
   }
 
 }

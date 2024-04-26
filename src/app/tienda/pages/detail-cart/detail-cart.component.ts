@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {CartService} from "../../services/cart/cart.service";
-import {AlertService} from "../../services/alert/alert.service";
 import {CurrencyPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/button";
@@ -18,6 +17,7 @@ import {DataPayUsers} from "../../interface/data-pay";
 import {Order} from "../../interface/order";
 import {DetailOrder} from "../../interface/detail-order";
 import {Products} from "../../interface/products";
+
 @Component({
   selector: 'app-detail-cart',
   standalone: true,
@@ -40,7 +40,7 @@ import {Products} from "../../interface/products";
   templateUrl: './detail-cart.component.html',
   styleUrl: './detail-cart.component.scss'
 })
-export default class DetailCartComponent implements OnInit{
+export default class DetailCartComponent implements OnInit {
 
   public valorTotal: number;
   public dataCart: any[];
@@ -53,10 +53,9 @@ export default class DetailCartComponent implements OnInit{
   getDataProduct!: Products;
 
   constructor(
-    private cartS: CartService,
-    private alert: AlertService,
-    private router: Router,
-    private storage: SesionService,
+    private _cart: CartService,
+    private _router: Router,
+    private _storage: SesionService,
     public dialog: MatDialog,
     private _crud: CrudService) {
     this.valorTotal = 0;
@@ -76,7 +75,7 @@ export default class DetailCartComponent implements OnInit{
 
 
   showDataCartStorage(): void {
-    this.cartS.currentMessage.subscribe((response: any) => {
+    this._cart.currentMessage.subscribe((response: any) => {
 
       if (response) {
         this.dataCart = response;
@@ -88,16 +87,16 @@ export default class DetailCartComponent implements OnInit{
   }
 
   public backButton(): void {
-    this.router.navigate(['/']);
+    this._router.navigate(['/']);
   }
 
   public deleteCard(items: any, i: number): void {
-    this.cartS.deleteCard(items, i);
+    this._cart.deleteCard(items, i);
   }
 
 
   showValueShopping(): void {
-    this.cartS.currentMessage.subscribe((response: any) => {
+    this._cart.currentMessage.subscribe((response: any) => {
       if (response) {
         this.valorTotal = response.reduce((item1: any, item2: any) => {
           return item1 + (item2.price * item2.cantidad);
@@ -123,11 +122,6 @@ export default class DetailCartComponent implements OnInit{
 
         this.crearOrden();
 
-
-
-        //this.cartS.removeStorage();
-       // this.router.navigate(['/']);
-
       } else {
         Swal.fire({
           title: "Cancelado!",
@@ -140,10 +134,9 @@ export default class DetailCartComponent implements OnInit{
   }
 
 
-
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
-      this.userRegister  = response;
+    this._storage.currentMessage.subscribe(response => {
+      this.userRegister = response;
       this.getDataUSerPay();
 
     });
@@ -152,74 +145,66 @@ export default class DetailCartComponent implements OnInit{
 
   public crearOrden(): void {
 
-      const dateOrder = new Date();
-      this.setOrderData.id = this._crud.generateId();
-      this.setOrderData.id_data_user = this.dataPay.id;
-      this.setOrderData.date_order = dateOrder.toISOString();
-      this.setOrderData.user_id = this.userRegister?.id;
+    const dateOrder = new Date();
+    this.setOrderData.id = this._crud.generateId();
+    this.setOrderData.id_data_user = this.dataPay.id;
+    this.setOrderData.date_order = dateOrder.toISOString();
+    this.setOrderData.user_id = this.userRegister?.id;
 
-      this._crud.setProduct('/order', this.setOrderData).then((response: any) => {
+    this._crud.setProduct('/order', this.setOrderData).then((response: any) => {
 
-        if (response) {
-           this.crearDetalleOrden(this.setOrderData.id);
-          //this.actualizarProducto();
-        }
+      if (response) {
+        this.crearDetalleOrden(this.setOrderData.id);
+        //this.actualizarProducto();
+      }
 
-      })
+    })
 
 
   }
+
   public crearDetalleOrden(order: number): void {
     this.getDataProductCart();
     this.dataCart.forEach((detail: any) => {
 
 
-       this.setOrDetailOrderData.detail_id = this._crud.generateId();
-       this.setOrDetailOrderData.order_id  = order;
-       this.setOrDetailOrderData.img = detail.img;
-       this.setOrDetailOrderData.price = detail.price;
-       this.setOrDetailOrderData.id_producto = detail.id;
-       this.setOrDetailOrderData.value_prefijo = detail.value_prefijo;
-       this.setOrDetailOrderData.prefijo = detail.prefijo;
-       this.setOrDetailOrderData.cantidad = detail.cantidad;
-       this.setOrDetailOrderData.category = detail.category;
-       this.setOrDetailOrderData.nameProduct = detail.nameProduct;
+      this.setOrDetailOrderData.detail_id = this._crud.generateId();
+      this.setOrDetailOrderData.order_id = order;
+      this.setOrDetailOrderData.img = detail.img;
+      this.setOrDetailOrderData.price = detail.price;
+      this.setOrDetailOrderData.id_producto = detail.id;
+      this.setOrDetailOrderData.value_prefijo = detail.value_prefijo;
+      this.setOrDetailOrderData.prefijo = detail.prefijo;
+      this.setOrDetailOrderData.cantidad = detail.cantidad;
+      this.setOrDetailOrderData.category = detail.category;
+      this.setOrDetailOrderData.nameProduct = detail.nameProduct;
 
       this._crud.setProduct('/detailOrder', this.setOrDetailOrderData);
 
 
-
     });
 
 
-
   }
+
   getDataProductCart(): void {
 
-    this.dataCart.forEach((product: any, index: number) => {
+    this.dataCart.forEach((product: any) => {
 
+      this.colectionIDProduct = product._id;
+      this.getDataProduct.size = product.size - product.cantidad;
 
-          this.colectionIDProduct  = product._id;
-          this.getDataProduct.size = product.size - product.cantidad;
+      this._crud.update('/products', this.colectionIDProduct, this.getDataProduct).then(() => {
 
-          this._crud.update('/products', this.colectionIDProduct, this.getDataProduct).then(() => {
-
-            Swal.fire({
-              title: "Muy bien!",
-              text: "El pedido fue realizado de forma correcta.",
-              icon: "success"
-            });
-          })
-
-
-
-
-
-
+        Swal.fire({
+          title: "Muy bien!",
+          text: "El pedido fue realizado de forma correcta.",
+          icon: "success"
+        });
+      });
     });
 
   }
-
 
 
   public openModalLogin(value: number): void {
@@ -236,14 +221,13 @@ export default class DetailCartComponent implements OnInit{
   getDataUSerPay(): void {
 
     this._crud.readGeneral('/data_pay', 'user_id', this.userRegister?.id).then((response: any) => {
-      response.subscribe(( res: any) => {
+      response.subscribe((res: any) => {
         const dataProduct = res[0].payload.doc.data();
-        this.colectionID  = res[0].payload.doc.id;
+        this.colectionID = res[0].payload.doc.id;
         this.dataPay = dataProduct as DataPayUsers;
 
       });
     })
-
   }
 
   setDataUser(): void {
@@ -284,7 +268,6 @@ export default class DetailCartComponent implements OnInit{
       description: '',
       id_producto: ''
     };
-
 
 
   }

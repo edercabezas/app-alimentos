@@ -24,7 +24,7 @@ import {Router} from "@angular/router";
 export class CategorysComponent implements OnInit{
   @Output() optionSelect: EventEmitter<any>;
   categorys: any = CATEGORY.data;
-  constructor( private router: Router) {
+  constructor( private _router: Router) {
     this.optionSelect = new EventEmitter();
   }
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class CategorysComponent implements OnInit{
 
     const url = item.name.toLowerCase().replaceAll(" ", '-').replaceAll(",", '');
 
-    this.router.navigate([`/list-products/${item.id}/${url}`]);
+    this._router.navigate([`/list-products/${item.id}/${url}`]);
 
 
   }

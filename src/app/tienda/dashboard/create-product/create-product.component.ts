@@ -41,10 +41,10 @@ export default class CreateProductComponent implements OnInit {
   idUrlProduct: any;
   codeProduct: any;
   constructor(
-    private crud: CrudService,
-    private alert: AlertService,
-    private imgFir: AngularFireStorage,
-    private activatedRoute: ActivatedRoute
+    private _crud: CrudService,
+    private _alert: AlertService,
+    private _imgFir: AngularFireStorage,
+    private _activatedRoute: ActivatedRoute
   ) {
   }
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export default class CreateProductComponent implements OnInit {
 
 
 
-    this.activatedRoute.params.subscribe((value: any) => {
+    this._activatedRoute.params.subscribe((value: any) => {
       if (value.id) {
         this.idUrlProduct = value.id;
         this._getProduct(value.id);
@@ -67,7 +67,7 @@ export default class CreateProductComponent implements OnInit {
 
 
   async _getProduct(id: any): Promise<any>  {
-    this.crud.readGeneral('/products', 'id', id).then( ( response: any) => {
+    this._crud.readGeneral('/products', 'id', id).then( ( response: any) => {
       response.subscribe(( res: any) => {
         const dataProduct = res[0].payload.doc.data();
         this.colectionID  = res[0].payload.doc.id;
@@ -82,11 +82,11 @@ export default class CreateProductComponent implements OnInit {
   public createRegister(): void {
     this.setProduct.id = this.codeProduct;
 
-    this.crud.setProduct('/products', this.setProduct).then((response: any) => {
+    this._crud.setProduct('/products', this.setProduct).then((response: any) => {
 
       if (response) {
         this._setCreateProduct();
-        this.alert.showToasterFull('El Producto se creo exitosamente');
+        this._alert.showToasterFull('El Producto se creo exitosamente');
 
       }
 
@@ -108,8 +108,8 @@ export default class CreateProductComponent implements OnInit {
     this.codeProduct = this.getCodigoVerificacion();
     const imgProductOne = data.target.files[0];
     this.routerIMG = `products/${this.codeProduct }`;
-    const ref = this.imgFir.ref(this.routerIMG);
-    const task = this.imgFir.upload(this.routerIMG, imgProductOne);
+    const ref = this._imgFir.ref(this.routerIMG);
+    const task = this._imgFir.upload(this.routerIMG, imgProductOne);
     const percentage = task.percentageChanges();
 
     task.snapshotChanges().subscribe(() => {
@@ -124,12 +124,12 @@ export default class CreateProductComponent implements OnInit {
 
   public updateProduct(): void {
 
-    this.crud.update('/products', this.colectionID, this.setProduct).then((response: any) => {
+    this._crud.update('/products', this.colectionID, this.setProduct).then((response: any) => {
 
-        this.alert.showToasterFull('El producto fue actualizado exitosamente');
+        this._alert.showToasterFull('El producto fue actualizado exitosamente');
 
-    }).catch((error: any) => {
-      this.alert.showToasterError('Hubo un error al actualizar el producto');
+    }).catch(() => {
+      this._alert.showToasterError('Hubo un error al actualizar el producto');
     });
   }
 

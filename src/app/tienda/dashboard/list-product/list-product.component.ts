@@ -14,7 +14,6 @@ import {Router, RouterLink} from "@angular/router";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {CATEGORY} from "../../const/category";
-import {Products} from "../../interface/products";
 import {AlertService} from "../../services/alert/alert.service";
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
@@ -52,9 +51,9 @@ export default class ListProductComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   getCategorys = CATEGORY.data;
-  constructor( private crud: CrudService,
-               private router: Router,
-               private alert: AlertService,) {
+  constructor( private _crud: CrudService,
+               private _router: Router,
+               private _alert: AlertService,) {
     this.tableConventionsColumns = [];
   }
   ngOnInit(): void {
@@ -65,7 +64,7 @@ export default class ListProductComponent implements OnInit {
 
   listProduct(): void {
 
-    this.crud.read('/products').then((response: any) => {
+    this._crud.read('/products').then((response: any) => {
 
       response.subscribe((res: any) => {
         this.tableproduct = new MatTableDataSource<any>(res);
@@ -97,12 +96,12 @@ export default class ListProductComponent implements OnInit {
 
 
   async _getProduct(id: any): Promise<any>  {
-    this.crud.readGeneral('/products', 'id', id).then( ( response: any) => {
+    this._crud.readGeneral('/products', 'id', id).then( ( response: any) => {
       response.subscribe(( res: any) => {
         this.colectionID  = res[0]?.payload.doc.id;
 
-        this.crud.deleteColection('/products', this.colectionID ).then((response: any) => {
-            this.alert.showToasterFull('El producto fue eliminado exitosamente');
+        this._crud.deleteColection('/products', this.colectionID ).then((response: any) => {
+            this._alert.showToasterFull('El producto fue eliminado exitosamente');
 
         })
 
@@ -114,7 +113,7 @@ export default class ListProductComponent implements OnInit {
 
 
   public selectRow(index: any): void {
-    this.router.navigate([`edit-product/${index.id}`])
+    this._router.navigate([`edit-product/${index.id}`])
   }
 
   public async deleteRow(index: any): Promise<any> {

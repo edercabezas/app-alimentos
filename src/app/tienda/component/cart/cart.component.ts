@@ -39,11 +39,11 @@ export class CartComponent implements OnInit{
   userRegister: any;
   constructor(public dialogRef: MatDialogRef<CartComponent>,
               @Inject(MAT_DIALOG_DATA) public dataCart: any,
-              private alert: AlertService,
+              private _alert: AlertService,
               private _cart: CartService,
               public dialog: MatDialog,
-              private storage: SesionService,
-              private crud: CrudService) {
+              private _storage: SesionService,
+              private _crud: CrudService) {
   }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class CartComponent implements OnInit{
       if (this.valueForm > 1 ) {
         this.valueForm--;
       } else {
-        this.alert.showToasterUpdate('Para agregar el producto al carrito la cantidad minima debe de ser 1');
+        this._alert.showToasterUpdate('Para agregar el producto al carrito la cantidad minima debe de ser 1');
       }
     }
   }
@@ -82,7 +82,7 @@ export class CartComponent implements OnInit{
   addCart(): void {
 
     if (this.valueForm > this.dataCart.size - this.cartProductQuantity) {
-      this.alert.showToasterWarning('La cantidad no puede ser mayor a la disponible');
+      this._alert.showToasterWarning('La cantidad no puede ser mayor a la disponible');
       return;
     }
 
@@ -135,7 +135,7 @@ export class CartComponent implements OnInit{
 
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
+    this._storage.currentMessage.subscribe(response => {
       this.userRegister  = response;
 
     });
@@ -149,7 +149,7 @@ export class CartComponent implements OnInit{
       return;
     }
 
-    this.setFavoriteData.id_favorite = this.crud.generateId();
+    this.setFavoriteData.id_favorite = this._crud.generateId();
     this.setFavoriteData.user_id = this.userRegister.id;
     this.setFavoriteData.id = data.id;
     this.setFavoriteData.nameProduct = data.nameProduct;
@@ -164,10 +164,10 @@ export class CartComponent implements OnInit{
     this.setFavoriteData.value_prefijo = data.value_prefijo;
 
 
-    this.crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
+    this._crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
       if (response) {
-        this.alert.showToasterFull('El producto se agrego a tus favoritos');
+        this._alert.showToasterFull('El producto se agrego a tus favoritos');
 
       }
 
@@ -209,7 +209,6 @@ export class CartComponent implements OnInit{
   get cartProductQuantity(): number {
 
     return  this._cart.cartProductCount[this.dataCart.id]?.cantidad ?? 0;
-   // this.dataCart.size -= quantityProductCart;
 
   }
 }

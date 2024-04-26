@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DetailCartComponent } from './detail-cart.component';
+import {DetailCartComponent} from './detail-cart.component';
 
 describe('DetailCartComponent', () => {
   let component: DetailCartComponent;
@@ -11,7 +11,7 @@ describe('DetailCartComponent', () => {
       imports: [DetailCartComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(DetailCartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

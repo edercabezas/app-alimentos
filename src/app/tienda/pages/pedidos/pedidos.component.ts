@@ -18,11 +18,12 @@ export default class PedidosComponent implements OnInit{
   panelOpenState = false;
   public userRegister: any
   public colectionID: any
-  public colectionIDProduct: any
   dataPay!: DataPayUsers;
   getOrderList: any;
   detailOrder: any;
-  constructor(private storage: SesionService, private _crud: CrudService) {
+  constructor(
+    private _storage: SesionService,
+    private _crud: CrudService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export default class PedidosComponent implements OnInit{
   }
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
+    this._storage.currentMessage.subscribe(response => {
       this.userRegister  = response;
       this.getDataUSerPay();
       this.getOrder();

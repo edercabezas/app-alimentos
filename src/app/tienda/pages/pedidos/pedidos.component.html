@@ -19,7 +19,7 @@
                 <span>Numero de pedido: {{ pedidos.id}}</span>
               </div>
               <div class="number__pedido">
-                <span>Estado de su pedido: Pendiente</span>
+                <span>Estado de su pedido: {{ pedidos.status}}</span>
               </div>
               <div class="number__pedido">
                 <span>Fecha de solicitud del pedido: {{ pedidos.date_order | date}}</span>
@@ -28,44 +28,6 @@
 
           </mat-card>
           </div>
-
-
-
-<!--            <mat-card *ngIf="userRegister && colectionID" class="information__comprador">-->
-<!--              <h2>Informacion de entrega del pedido</h2>-->
-<!--              <p>-->
-<!--                <span>Nombre: {{ dataPay.nombre }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Apellido: {{ dataPay.apellido }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Telefono: {{ dataPay.telefono }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Ciudad: {{ dataPay.ciudad }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Dirección: {{ dataPay.direccion }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Barrio: {{ dataPay.barrio }}</span>-->
-<!--              </p>-->
-
-<!--              <p>-->
-<!--                <span>Observacion: {{ dataPay.observation }} </span>-->
-<!--              </p>-->
-
-
-<!--              <h2>para actualizar tú información <span routerLink="/my-user">Ingresa aquí</span></h2>-->
-<!--            </mat-card>-->
-
-
 
         </div>
         <div class="col-12 col-lg-7">

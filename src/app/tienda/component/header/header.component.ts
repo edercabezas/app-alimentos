@@ -44,9 +44,9 @@ export class HeaderComponent implements OnInit{
   public valorCantidad: number;
   public setProduct: boolean = true;
   constructor(public dialog: MatDialog,
-              private router: Router,
-              private storage: SesionService,
-              private cartS: CartService) {
+              private _router: Router,
+              private _storage: SesionService,
+              private _cart: CartService) {
     this.showScroll = true;
     this.valorCantidad = 0;
   }
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit{
 
   redirectUSer(url: string): void {
     if ( this.userRegister) {
-      this.router.navigate([`/${url}`]);
+      this._router.navigate([`/${url}`]);
       return;
     }
 
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit{
   }
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
+    this._storage.currentMessage.subscribe(response => {
       this.userRegister  = response;
 
     });
@@ -89,10 +89,10 @@ export class HeaderComponent implements OnInit{
 
 
     localStorage.removeItem('authStore');
-    this.storage.changeMessage();
+    this._storage.changeMessage();
     this.authData =  null;
     this.userRegister = null;
-    this.router.navigate(['/']);
+    this._router.navigate(['/']);
 
   }
   menuMobilShow(): void{
@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit{
 
 
   showAmountProductCart(): any {
-    this.cartS.currentMessage.subscribe((response: any) => {
+    this._cart.currentMessage.subscribe((response: any) => {
       if (response) {
         this.valorCantidad = response.reduce((item1: any, item2: any) => {
           return item1 + item2.cantidad;

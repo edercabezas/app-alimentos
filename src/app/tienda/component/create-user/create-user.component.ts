@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatFormField, MatFormFieldModule, MatLabel, MatSuffix} from "@angular/material/form-field";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
-import {MatInput, MatInputModule} from "@angular/material/input";
+import { MatInputModule} from "@angular/material/input";
 import {User} from "../../interface/user";
 import {AuthService} from "../../services/auth/auth.service";
 import {AlertService} from "../../services/alert/alert.service";
@@ -33,13 +33,13 @@ import {MatSelect} from "@angular/material/select";
 })
 export  class CreateUserComponent implements  OnInit{
   public userRegister!: User;
-  hide = true;
+  hide:boolean = true;
   statusButton: boolean = false;
   numberOption: number = 0;
   constructor(public dialogRef: MatDialogRef<CreateUserComponent>,
               @Inject(MAT_DIALOG_DATA) public dataCart: any,
-              private __auth: AuthService,
-              private alert: AlertService,
+              private _auth: AuthService,
+              private _alert: AlertService,
               private router: Router,) {
   }
   ngOnInit(): void {
@@ -59,15 +59,15 @@ export  class CreateUserComponent implements  OnInit{
   public createUser(): void {
     this.statusButton = true;
     this.userRegister.id = new Date().getTime() + new Date().getUTCMilliseconds();
-    this.__auth.registerUSerFirebase(this.userRegister).then((response: any) => {
+    this._auth.registerUSerFirebase(this.userRegister).then((response: any) => {
 
       if (response) {
         this.userRegister.code = response.user.uid;
 
-        this.__auth.setUser('/users', this.userRegister).then((response: any) => {
+        this._auth.setUser('/users', this.userRegister).then((response: any) => {
           if (response) {
             this._setCreateUSer();
-            this.alert.showToasterFull('El Usuario se creo exitosamente');
+            this._alert.showToasterFull('El Usuario se creo exitosamente');
 
             this.statusButton = false;
 
@@ -75,8 +75,8 @@ export  class CreateUserComponent implements  OnInit{
           }
 
 
-        }).catch((error: any) => {
-          this.alert.showToasterError('Error al guardar los datos del usuario');
+        }).catch(() => {
+          this._alert.showToasterError('Error al guardar los datos del usuario');
           this.statusButton = false;
         })
 
@@ -85,7 +85,7 @@ export  class CreateUserComponent implements  OnInit{
 
     }).catch((error: any) => {
       this.statusButton = false;
-      this.alert.showToasterError('El correo ingresado ya existe o no es Valido, por favor validar nuevamente');
+      this._alert.showToasterError('El correo ingresado ya existe o no es Valido, por favor validar nuevamente');
     });
 
   }

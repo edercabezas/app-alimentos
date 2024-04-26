@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from "../../services/crud/crud.service";
 import {AlertService} from "../../services/alert/alert.service";
-import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Products} from "../../interface/products";
-import { NgxImageZoomModule } from 'ngx-image-zoom';
+import {NgxImageZoomModule} from 'ngx-image-zoom';
 import {CurrencyPipe, NgIf} from "@angular/common";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
@@ -33,25 +32,21 @@ import {SesionService} from "../../services/sesion-global/sesion.service";
 export default class DetailProductComponent implements OnInit{
 
   setProduct!: Products;
-  routerIMG: string = '';
-  routerFinish: any;
   idUrlProduct: any;
-  codeProduct: any;
   reload: boolean = true;
 
   setFavoriteData!: Favorite;
   userRegister: any;
-  constructor( private crud: CrudService,
-               private alert: AlertService,
-               private imgFir: AngularFireStorage,
-               private activatedRoute: ActivatedRoute,
-               private router: Router,
-               private storage: SesionService,
+  constructor( private _crud: CrudService,
+               private _alert: AlertService,
+               private _activatedRoute: ActivatedRoute,
+               private _router: Router,
+               private _storage: SesionService,
                public dialog: MatDialog) {
   }
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe((value: any) => {
+    this._activatedRoute.params.subscribe((value: any) => {
       if (value.id) {
         this.idUrlProduct = value.id;
         this._getProduct(value.id);
@@ -67,7 +62,7 @@ export default class DetailProductComponent implements OnInit{
   async _getProduct(id: any): Promise<any>  {
 
     this.reload = true
-    this.crud.readGeneral('/products', 'id', id).then( ( response: any) => {
+    this._crud.readGeneral('/products', 'id', id).then( ( response: any) => {
       response.subscribe(( res: any) => {
         const dataProduct = res[0]?.payload?.doc.data();
         this.setProduct = dataProduct as Products;
@@ -80,7 +75,7 @@ export default class DetailProductComponent implements OnInit{
 
 
   public backButton(): void {
-    this.router.navigate(['/']);
+    this._router.navigate(['/']);
   }
 
 
@@ -90,12 +85,11 @@ export default class DetailProductComponent implements OnInit{
       height: '500px',
       data: data
     });
-
   }
 
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
+    this._storage.currentMessage.subscribe(response => {
       this.userRegister  = response;
 
     });
@@ -109,7 +103,7 @@ export default class DetailProductComponent implements OnInit{
       return;
     }
 
-    this.setFavoriteData.id_favorite = this.crud.generateId();
+    this.setFavoriteData.id_favorite = this._crud.generateId();
     this.setFavoriteData.user_id = this.userRegister.id;
     this.setFavoriteData.id = data.id;
     this.setFavoriteData.nameProduct = data.nameProduct;
@@ -123,10 +117,10 @@ export default class DetailProductComponent implements OnInit{
     this.setFavoriteData.description = data.description;
     this.setFavoriteData.value_prefijo = data.value_prefijo;
 
-    this.crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
+    this._crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
       if (response) {
-        this.alert.showToasterFull('El producto se agrego a tus favoritos');
+        this._alert.showToasterFull('El producto se agrego a tus favoritos');
 
       }
 

@@ -9,7 +9,6 @@ import {DataPayUsers} from "../../interface/data-pay";
 import {MatButton} from "@angular/material/button";
 import {SesionService} from "../../services/sesion-global/sesion.service";
 import {AlertService} from "../../services/alert/alert.service";
-import {Products} from "../../interface/products";
 
 @Component({
   selector: 'app-users',
@@ -27,13 +26,14 @@ import {Products} from "../../interface/products";
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export default class UsersComponent implements  OnInit{
+export default class UsersComponent implements OnInit {
   dataPay!: DataPayUsers;
   userRegister: any;
   colectionID: any;
+
   constructor(private _crud: CrudService,
-              private storage: SesionService,
-              private alert: AlertService) {
+              private _storage: SesionService,
+              private _alert: AlertService) {
   }
 
   ngOnInit(): void {
@@ -55,8 +55,8 @@ export default class UsersComponent implements  OnInit{
 
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe((response: any) => {
-      this.userRegister  = response;
+    this._storage.currentMessage.subscribe((response: any) => {
+      this.userRegister = response;
 
       this.dataPay.correo = response.email;
 
@@ -64,13 +64,12 @@ export default class UsersComponent implements  OnInit{
   }
 
 
-
   getDataUSerPay(): void {
 
     this._crud.readGeneral('/data_pay', 'user_id', this.userRegister.id).then((response: any) => {
-      response.subscribe(( res: any) => {
+      response.subscribe((res: any) => {
         const dataProduct = res[0].payload.doc.data();
-        this.colectionID  = res[0].payload.doc.id;
+        this.colectionID = res[0].payload.doc.id;
         this.dataPay = dataProduct as DataPayUsers;
 
       });
@@ -79,11 +78,11 @@ export default class UsersComponent implements  OnInit{
   }
 
   validateOption(): void {
-      if (this.colectionID) {
-        this.updateUsers();
-      } else {
-        this.setDataPay();
-      }
+    if (this.colectionID) {
+      this.updateUsers();
+    } else {
+      this.setDataPay();
+    }
   }
 
   setDataUser(): void {
@@ -109,7 +108,7 @@ export default class UsersComponent implements  OnInit{
     this._crud.setProduct('/data_pay', this.dataPay).then((response: any) => {
 
       if (response) {
-          this.alert.showToasterFull('La información fue guardada exitosamente')
+        this._alert.showToasterFull('La información fue guardada exitosamente')
       }
     });
   }
@@ -117,12 +116,11 @@ export default class UsersComponent implements  OnInit{
 
   public updateUsers(): void {
 
-    this._crud.update('/products', this.colectionID, this.dataPay).then((response: any) => {
+    this._crud.update('/products', this.colectionID, this.dataPay).then(() => {
+      this._alert.showToasterFull('Los datos fueron actualizados exitosamente');
 
-      this.alert.showToasterFull('Los datos fueron actualizados exitosamente');
-
-    }).catch((error: any) => {
-      this.alert.showToasterError('Hubo un error al actualizar los datos');
+    }).catch(() => {
+      this._alert.showToasterError('Hubo un error al actualizar los datos');
     });
   }
 }

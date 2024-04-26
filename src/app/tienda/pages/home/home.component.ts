@@ -13,7 +13,6 @@ import {Favorite} from "../../interface/favorite";
 import {SesionService} from "../../services/sesion-global/sesion.service";
 import {AuthComponent} from "../../component/auth/auth.component";
 import {AlertService} from "../../services/alert/alert.service";
-import {CartService} from "../../services/cart/cart.service";
 
 
 @Component({
@@ -41,11 +40,11 @@ export default class HomeComponent implements OnInit{
   userRegister: any;
 
   constructor(private _crud: CrudService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private storage: SesionService,
+              private _activatedRoute: ActivatedRoute,
+              private _router: Router,
+              private _storage: SesionService,
               public  dialog: MatDialog,
-              private alert: AlertService ) {
+              private _alert: AlertService ) {
     this.products = [];
   }
 
@@ -53,7 +52,7 @@ export default class HomeComponent implements OnInit{
   ngOnInit(): void {
 
     this.llamarUsuarioData();
-    this.activatedRoute.params.subscribe((value: any) => {
+    this._activatedRoute.params.subscribe((value: any) => {
 
       if (value && value.id > 0) {
         this.getProductCategory(value.id);
@@ -90,12 +89,9 @@ export default class HomeComponent implements OnInit{
         this.products = res;
         this.statusProduct = false;
 
-
         this.products = this.products.filter((item: any) => item.status === true);
 
       });
-
-
     }).catch((error: any) => {
       this.statusProduct = false;
     })
@@ -105,8 +101,7 @@ export default class HomeComponent implements OnInit{
   redirectDetail(item: any): void {
 
     const url = item.nameProduct.toLowerCase().replaceAll(" ", '-').replaceAll(",", '');
-
-    this.router.navigate([`/detail-product/${item.id}/${url}`]);
+    this._router.navigate([`/detail-product/${item.id}/${url}`]);
 
   }
 
@@ -122,7 +117,7 @@ export default class HomeComponent implements OnInit{
   }
 
   llamarUsuarioData() {
-    this.storage.currentMessage.subscribe(response => {
+    this._storage.currentMessage.subscribe(response => {
       this.userRegister  = response;
 
     });
@@ -154,7 +149,7 @@ public setFavorite(data: any): void {
   this._crud.setProduct('/favorite', this.setFavoriteData).then((response: any) => {
 
     if (response) {
-      this.alert.showToasterFull('El producto se agrego a tus favoritos');
+      this._alert.showToasterFull('El producto se agrego a tus favoritos');
 
     }
   })

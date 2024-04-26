@@ -1,9 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CrudService} from "../../services/crud/crud.service";
-import {AlertService} from "../../services/alert/alert.service";
-import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {Products} from "../../interface/products";
 import {Order} from "../../interface/order";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
@@ -17,7 +14,7 @@ import {
   MatHeaderCell,
   MatHeaderRow,
   MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule
+  MatRow, MatRowDef, MatTable, MatTableModule
 } from "@angular/material/table";
 import {MatIcon} from "@angular/material/icon";
 import {MatPaginator} from "@angular/material/paginator";
@@ -71,15 +68,13 @@ export default class EditOrderComponent  implements OnInit{
   colectionID: any;
   setDetail: any;
   getOrder!: Order;
-  constructor(private crud: CrudService,
-              private alert: AlertService,
-              private imgFir: AngularFireStorage,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private _crud: CrudService,
+              private _router: Router,
+              private _activatedRoute: ActivatedRoute) {
 
     this.getOrder = {} as any;
 
-    this.activatedRoute.params.subscribe((value: any) => {
+    this._activatedRoute.params.subscribe((value: any) => {
 
       console.log(value)
       if (value.id) {
@@ -97,7 +92,7 @@ export default class EditOrderComponent  implements OnInit{
 
   getOrderData(order: any): void {
 
-    this.crud.readGeneral('/order', 'id', order).then( ( response: any) => {
+    this._crud.readGeneral('/order', 'id', order).then( ( response: any) => {
       response.subscribe(( res: any) => {
         const dataProduct = res[0].payload.doc.data();
         this.colectionID  = res[0].payload.doc.id;
@@ -111,10 +106,9 @@ export default class EditOrderComponent  implements OnInit{
 
   async getDetailOrder(id_order: any): Promise<any> {
 
-    const data = this.crud.readDetailOrder('/detailOrder', 'order_id',  id_order);
+    const data = this._crud.readDetailOrder('/detailOrder', 'order_id',  id_order);
 
     data.subscribe(async ( res: any) => {
-      console.log(res)
       this.setDetail = res;
     });
 
@@ -122,7 +116,7 @@ export default class EditOrderComponent  implements OnInit{
 
   public updateOrder(): void {
 
-    this.crud.update('/order', this.colectionID, this.getOrder).then(() => {
+    this._crud.update('/order', this.colectionID, this.getOrder).then(() => {
 
       Swal.fire({
         title: "Muy bien!",
@@ -136,7 +130,7 @@ export default class EditOrderComponent  implements OnInit{
   }
 
   public backButton(): void {
-    this.router.navigate(['/list-order']);
+    this._router.navigate(['/list-order']);
   }
 
 }
